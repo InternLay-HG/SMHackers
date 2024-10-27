@@ -11,7 +11,7 @@
 - Reporting and analytics
 
 
-- ##### Patient Record Management
+##### Patient Record Management
 - The system shall allow creation and modification of patient records
 - Each patient record shall include demographics, medical history, allergies, and current medications
 - The system shall support attaching and viewing medical images (X-rays, MRIs, etc.)
