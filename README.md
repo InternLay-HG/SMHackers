@@ -9,7 +9,8 @@
 - Medical knowledge base and assistance
 - Secure messaging between healthcare providers
 - Reporting and analytics
-- 
+
+
 - ##### Patient Record Management
 - The system shall allow creation and modification of patient records
 - Each patient record shall include demographics, medical history, allergies, and current medications
@@ -65,7 +66,7 @@
 
 
 ## Tech Stack
-###Frontend
+### Frontend
 - React
 - Tailwind CSS
 - Redux(React Library)
