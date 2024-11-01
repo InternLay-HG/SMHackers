@@ -1,5 +1,12 @@
 # Medical Record System
 
+## Team Name: SMHackers
+### Members:
+- Harshal Gupta
+- Shresth Pratyush
+- Manas Mahto
+- Kaushik Gupta
+
 ## Features
 - Patient record management
 - Appointment scheduling
@@ -80,3 +87,5 @@
 - Express
 - Firebase
 - Docker
+
+## Here's the figma design for our website [Design](https://www.figma.com/design/tIpj8R0GSiz43zEHWRH17F/Medic?node-id=0-1&t=buuKm4BnJ3w8z1cZ-1 )
