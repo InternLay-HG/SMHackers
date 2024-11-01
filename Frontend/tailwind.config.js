@@ -8,7 +8,9 @@ export default {
     extend: {
       colors:{
         'basic-green':'#F6FFFBC7',
-        'medic-green':'#099E6C'
+        'medic-green':'#099E6C',
+        'back-green':'#4C937E',
+        'searchbar-background-green':'#F6FFFBC7'
       },
       backgroundImage: {
         'search':"url('./assets/search.png')",

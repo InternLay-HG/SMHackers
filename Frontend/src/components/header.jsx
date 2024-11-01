@@ -1,6 +1,6 @@
 export const Header = () => {
     return (
-        <div className="flex bg-basic-green justify-between p-4">
+        <div className="flex bg-basic-green justify-between p-4 shadow-lg">
             <div className="font-jaldi text-3xl font-normal text-medic-green">
                 Medic
             </div>
