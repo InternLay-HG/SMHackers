@@ -13,7 +13,7 @@ export default {
         'searchbar-background-green':'#F6FFFBC7'
       },
       backgroundImage: {
-        'search':"url('./assets/search.png')",
+        'search':"url('./images/search.png')",
       },
       fontFamily: {
         jaldi: ["Jaldi", 'sans-serif'],
