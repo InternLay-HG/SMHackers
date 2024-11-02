@@ -7,13 +7,13 @@ export const Button=({
 {
     return(
         <div>
-            <button type='submit'>
-        <div className={`rounded-[20px] h-[70px] w-[220px] ${color} flex items-center py-2`}>
-            <div className="flex p-5">
-            <div className="w-16 h-12 p-1">
+        <button type='submit' >
+        <div className={`rounded-[20px] h-[60px] w-[180px] ${color} flex items-center justify-around py-2 hover:ring-2 hover:ring-green-200`}>
+            <div className="flex items-center p-2">
+            <div className="w-12 h-12 p-2 ">
                 <img src={image} alt="Image"></img>
             </div>
-            <div className="text-[#00693B] text-xl font-jaldi font-bold p-4">
+            <div className="text-[#00693B] text-lg font-jaldi font-semibold p-4">
                 {text}
             </div>
             </div>
