@@ -88,4 +88,5 @@
 - Firebase
 - Docker
 
-## Here's the figma design for our website [Design](https://www.figma.com/design/tIpj8R0GSiz43zEHWRH17F/Medic?node-id=0-1&t=buuKm4BnJ3w8z1cZ-1 )
+## Here's the figma design for our website   [Click here](https://www.figma.com/design/tIpj8R0GSiz43zEHWRH17F/Medic?node-id=0-1&t=buuKm4BnJ3w8z1cZ-1 )
+(Credits- Manas Mahto)
