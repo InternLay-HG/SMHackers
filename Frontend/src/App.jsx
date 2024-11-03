@@ -12,27 +12,34 @@ import Updates from './images/updates.svg'
 import Chronic from './images/Chronic.svg'
 import Allergies from './images/Allergies.svg'
 import { Card } from "./components/card"
+import PrevRecords from "./components/PrevRecords.jsx"
 
 function App(){
   return(
-    <div className="bg-[#f6fffb] h-screen" >
-      <Header text={"Login"}></Header>
-      <SearchBar text={"Search records, appointments ,insurance ..."}></SearchBar>
-      <div className="flex justify-evenly px-10 py-10 bg-[#F6FFFBC7] h-[150px]">
-        <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records}></Button>
-        <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications}></Button>
-        <Button color={"bg-[#FFF7DD]"}text={"Appointments"} image={Appointments}></Button>
-        <Button color={"bg-[#E6F9E3]"}text={"Lab"} image={Lab}></Button>
-        <Button color={"bg-[#EFEEFD]"}text={"Precautions"} image={Precautions}></Button>
+      <div>
+        <div className="bg-[#f6fffb] h-screen" >
+        <Header text={"Login"}></Header>
+        <SearchBar text={"Search records, appointments ,insurance ..."} ></SearchBar>
+        <div className="flex justify-evenly gap-5 sm:gap-0 px-10 py-8 sm:py-9 md:py-10 bg-[#F6FFFBC7] h-36 flex-wrap sm:flex-nowrap">
+          <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"}></Button>
+          <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"}></Button>
+          <Button color={"bg-[#FFF7DD]"}text={"Appointments"} image={Appointments} prop={"hidden"}></Button>
+          <Button color={"bg-[#E6F9E3]"}text={"Lab"} image={Lab} prop={"hidden"}></Button>
+          <Button color={"bg-[#EFEEFD]"}text={"Precautions"} image={Precautions} prop={"hidden"}></Button>
+        </div>
+        <div className="flex px-5 md:px-20 justify-between bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip md:overflow-visible">
+          <Card text={"Reminder"} image={Reminder} ></Card>
+          <Card text={"Appointments"} image={Bell}></Card>
+          <Card text={"Updates"} image={Updates} ></Card>
+          <Card text={"Chronic Conditions"} image={Chronic}></Card>
+          <Card text={"Alergies"} image={Allergies}></Card>
+        </div>
+        </div>
+        <PrevRecords/>
       </div>
-      <div className="flex px-[80px] justify-between bg-[#f6fffb]">
-        <Card text={"Reminder"} image={Reminder} ></Card>
-        <Card text={"Appointments"} image={Bell}></Card>
-        <Card text={"Updates"} image={Updates} ></Card>
-        <Card text={"Chronic Conditions"} image={Chronic}></Card>
-        <Card text={"Alergies"} image={Allergies}></Card>
-      </div>
-    </div>
+  
+      
+
   )
 }
-export default App
+export default App;
