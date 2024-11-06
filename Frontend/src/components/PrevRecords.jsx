@@ -27,12 +27,12 @@ function PrevRecords(){
           </div>
         </div>
       </div>
-      <div className="bg-[#E5FDFF] h-16 flex align-center">
-        <div className="flex items-center  p-2">
-          <div className="h-10 w-10 lg:w-12 lg:h-12  p-2  ">
+      <div className="bg-[#E5FDFF] flex align-center">
+        <div className="flex items-center p-1 md:p-1.5 lg:p-2">
+          <div className=" h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:w-12 lg:h-12  p-2  ">
             <img src={recordimage} alt="Image"></img>
           </div>
-          <div className="text-[#00693B] text-base lg:text-lg font-jaldi font-semibold  p-2 lg:p-4">
+          <div className="text-[#00693B] text-sm md:text-base lg:text-lg font-jaldi font-semibold  p-2 lg:p-4">
             Past Medical Records
           </div>
           
@@ -45,14 +45,14 @@ function PrevRecords(){
           <Button color={"bg-[#E5FDFF]"} text={"Family Medical History"} ></Button>
           <Button color={"bg-[#E5FDFF]"} text={"Last Physical Exam"}></Button>
         </div>
-        <div className="flex px-5 md:px-20  h-60 justify-between bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip md:overflow-visible">
+        <div className="flex px-5 md:px-20  justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
           <Card text={"Condition"} ></Card>
           <Card text={"Condition"}></Card>
           <Card text={"Condition"}  ></Card>
           <Card text={"Condition"} ></Card>
           <Card text={"Condition"}></Card>
         </div>
-        <div className="w-full flex justify-center items-center gap-6 ">
+        <div className="w-full flex justify-center items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 ">
           <Click text={"More"} image={more} />
           <Click text={"Update Records"} image={update}/>
         </div>
