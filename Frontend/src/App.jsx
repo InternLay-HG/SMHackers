@@ -13,6 +13,7 @@ import Chronic from './images/Chronic.svg'
 import Allergies from './images/Allergies.svg'
 import { Card } from "./components/card"
 import PrevRecords from "./components/PrevRecords.jsx"
+import { Signup } from "./components/signup.jsx"
 
 function App(){
   return(
@@ -35,7 +36,8 @@ function App(){
           <Card text={"Alergies"} image={Allergies}></Card>
         </div>
         </div>
-        <PrevRecords/>
+        
+
       </div>
   
       
