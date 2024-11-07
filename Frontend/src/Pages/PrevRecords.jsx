@@ -1,10 +1,10 @@
 import React from "react"
-import { Header } from "./header.jsx"
+import { Header } from "../components/header.jsx"
 import searchicon from '../images/searchicon.png'
 import recordimage from '../images/Records.png'
-import {Button} from "./button.jsx"
-import {Card} from "./card.jsx"
-import {Click} from "./click.jsx"
+import {Button} from "../components/button.jsx"
+import {Card} from "../components/card.jsx"
+import {Click} from "../components/click.jsx"
 import more from "../images/more.svg"
 import update from "../images/update.svg"
 

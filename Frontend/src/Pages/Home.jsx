@@ -12,7 +12,8 @@ import Updates from '../images/updates.svg'
 import Chronic from '../images/Chronic.svg'
 import Allergies from '../images/Allergies.svg'
 import { Card } from "../components/card.jsx"
-import PrevRecords from "../components/PrevRecords.jsx"
+import PrevRecords from "./PrevRecords.jsx"
+import { Link } from "react-router-dom"
 
 
 
@@ -22,7 +23,7 @@ export const Home=()=>{
         <Header text={"Login"}></Header>
         <SearchBar text={"Search records, appointments ,insurance ..."} ></SearchBar>
         <div className="flex justify-evenly gap-5 sm:gap-0 px-10 py-8 sm:py-9 md:py-10 bg-[#F6FFFBC7] h-36 flex-wrap sm:flex-nowrap">
-          <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"}></Button>
+          <Link to='/records'><Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"}></Button></Link>
           <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"}></Button>
           <Button color={"bg-[#FFF7DD]"}text={"Appointments"} image={Appointments} prop={"hidden"}></Button>
           <Button color={"bg-[#E6F9E3]"}text={"Lab"} image={Lab} prop={"hidden"}></Button>
