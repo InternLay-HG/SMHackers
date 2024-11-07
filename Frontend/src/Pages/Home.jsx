@@ -12,7 +12,6 @@ import Updates from '../images/updates.svg'
 import Chronic from '../images/Chronic.svg'
 import Allergies from '../images/Allergies.svg'
 import { Card } from "../components/card.jsx"
-import PrevRecords from "./PrevRecords.jsx"
 import { Link } from "react-router-dom"
 
 
@@ -26,7 +25,7 @@ export const Home=()=>{
           <Link to='/records'><Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"}></Button></Link>
           <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"}></Button>
           <Button color={"bg-[#FFF7DD]"}text={"Appointments"} image={Appointments} prop={"hidden"}></Button>
-          <Button color={"bg-[#E6F9E3]"}text={"Lab"} image={Lab} prop={"hidden"}></Button>
+          <Link to='/lab'><Button color={"bg-[#E6F9E3]"}text={"Lab"} image={Lab} prop={"hidden"}></Button></Link>
           <Button color={"bg-[#EFEEFD]"}text={"Precautions"} image={Precautions} prop={"hidden"}></Button>
         </div>
         <div className="flex px-5 md:px-20  justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
