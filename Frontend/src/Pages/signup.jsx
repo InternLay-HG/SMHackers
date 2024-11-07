@@ -1,5 +1,5 @@
 import React from 'react'
-import {Inputfield} from './inputfield'
+import {Inputfield} from '../components/inputfield'
 
 export const Signup = () => {
   return (
