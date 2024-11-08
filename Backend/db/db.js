@@ -11,8 +11,7 @@ const userSchema = new mongoose.Schema({
     pincode: Number,
     state: String,
     city: String,
-    address: String,
-    type: String // this is for the 5 primitve users of the app
+    address: String
 });
 const User = mongoose.model('User', userSchema);
 module.exports = {
