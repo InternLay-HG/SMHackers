@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
     pincode: Number,
     state: String,
     city: String,
-    address: String
+    address: String,
+    role: String
 });
 const User = mongoose.model('User', userSchema);
 module.exports = {

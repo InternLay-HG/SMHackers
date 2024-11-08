@@ -15,7 +15,8 @@ const signupBody = zod.object({
     pincode: zod.number().int().min(100000, "Pincode must be a 6-digit number.").max(999999, "Pincode must be a 6-digit number."),
     state: zod.string().min(2, "State must be at least 2 characters long."),
     city: zod.string().min(2, "City must be at least 2 characters long."),
-    address: zod.string().min(5, "Address must be at least 5 characters long.")
+    address: zod.string().min(5, "Address must be at least 5 characters long."),
+    role: zod.string().min(3,"Role is required")
 });
 
 
@@ -48,7 +49,8 @@ if (!success) {
         pincode: req.body.pincode,
         state: req.body.state,
         city: req.body.city,
-        address: req.body.address
+        address: req.body.address,
+        role: req.body.role
 
     })
     const userId = user._id;
