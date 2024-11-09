@@ -16,6 +16,7 @@ export const Card=(
             <div className=" p-3 md:p-5 text-[#92C1B6] sm:text-base font-inter text-sm bg-white overflow-y-scroll no-scrollbar  rounded-b-xl">
                 "Random shit... (State Variable Control Logic)"
             </div>
+            
         </div> 
     )
 }
