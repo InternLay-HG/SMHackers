@@ -1,7 +1,31 @@
 import React from 'react'
+import { useState } from "react"
 import {Inputfield} from '../components/inputfield'
+import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import axios from "axios";
 
 export const Signup = () => {
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [state,setState]=useState("");
+  const [city,setCity]=useState("");
+  const [pincode,setPincode]=useState(0);
+  const [address,setAddress]=useState("")
+  const [role,setRole]=useState("");
+
+  const handlePincodeChange = (e) => {
+    const value = e.target.value;
+    if (/^\d+$/.test(value)) {
+      setPincode(Number(value));
+    }
+  };
+
+  const navigate = useNavigate();
+
   return (
     
 
@@ -102,26 +126,44 @@ export const Signup = () => {
       </div>
       <form action="/signup" method="POST" class="space-y-4">
 
-        <Inputfield text={"Username"} type={"text"} id={"username"}/>
-        <Inputfield text={"Password"} type={"password"} id={"password"} pattern=".{8,}"/>
+        <Inputfield text={"Username"} type={"text"} id={"username"} onChange={(e) => {
+          setUsername(e.target.value)
+        }}/>
+        <Inputfield  onChange={(e) => {
+          setPassword(e.target.value)
+        }} text={"Password"} type={"password"} id={"password"} pattern=".{8,}"/>
         
         <section className="flex justify-around gap-1">
-          <Inputfield text={"First Name"} type={"text"} id={"firstName"}/>
-          <Inputfield text={"Last name"} type={"text"} id={"lastName"}/>
+          <Inputfield text={"First Name"} type={"text"} id={"firstName"} onChange={e => {
+          setFirstName(e.target.value);
+        }}/>
+          <Inputfield text={"Last name"} type={"text"} id={"lastName"} onChange={(e) => {
+          setLastName(e.target.value);
+        }}/>
         </section>
         
-          <Inputfield text={"State"} type={"text"} id={"state"}/>
-          <Inputfield text={"Pin Code"} type={"number"} id={"pincode"}/>
+          <Inputfield text={"State"} type={"text"} id={"state"} onChange={(e) => {
+          setState(e.target.value);
+        }}/>
+         <Inputfield text={"City"} type={"text"} id={"city"} onChange={(e) => {
+          setCity(e.target.value);
+        }}/>
+          <Inputfield text={"Pin Code"} type={"number"} id={"pincode"}  onChange={handlePincodeChange}/>
           
-        <Inputfield text={"Address"} type={"text"} id={"address"}/>
+        <Inputfield text={"Address"} type={"text"} id={"address"} onChange={(e) => {
+          setAddress(e.target.value)
+        }}/>
         <div>
         <label for="role" className="block text-sm font-medium text-[#00693B]">Role</label>     
         
-        <select id="role" name="role" className="mt-1 text-sm font-medium text-gray-500 p-2 w-full border rounded-md focus:border-[#00693c8d] focus:border-2 focus:outline-none  transition-colors duration-300">
+        <select  onChange={(e) => {
+          setRole(e.target.value)
+        }} id="role" name="role" className="mt-1 text-sm font-medium text-gray-500 p-2 w-full border rounded-md focus:border-[#00693c8d] focus:border-2 focus:outline-none  transition-colors duration-300">
             <option value="Physician">Physician</option>
             <option value="Nurses">Nurses</option>
             <option value="Patient">Patient</option>
             <option value="Admin">Admin</option>
+            
             
         </select>
         </div>
@@ -129,12 +171,25 @@ export const Signup = () => {
 
   
         <div>
-          <button type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
+          <button onClick={async () => {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+              username,
+              firstName,
+              lastName,
+              password,
+              state,
+              city,
+              pincode,
+              address,
+              role
+            });
+            localStorage.setItem("token", response.data.token)
+            navigate("/")
+          }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
         </div>
       </form>
       <div class="mt-4 text-sm text-gray-600 text-center">
-        <p>Already have an account? <a href="#" class="text-[#00693B] hover:underline">Login here</a>
-        </p>
+      <p>Already have an account? <Link to="/login" className="text-[#00693B] hover:underline">Login here</Link></p>
       </div>
     </div>
   </div>
