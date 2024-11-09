@@ -3,18 +3,13 @@ import { useState } from "react"
 import {Inputfield} from '../components/inputfield'
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import axios from "axios";
 
 export const Login = () => {
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+ 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [state,setState]=useState("");
-  const [city,setCity]=useState("");
-  const [pincode,setPincode]=useState();
-  const [address,setAddress]=useState("")
-  const [role,setRole]=useState("");
 
   const navigate = useNavigate();
 
@@ -109,14 +104,14 @@ export const Login = () => {
               <path fill="#518ef8" d="M507.527 208.176C510.467 223.662 512 239.655 512 256c0 18.328-1.927 36.206-5.598 53.451-12.462 58.683-45.025 109.925-90.134 146.187l-.014-.014-73.044-3.727-10.338-64.535c29.932-17.554 53.324-45.025 65.646-77.911h-136.89V208.176h245.899z"></path>
               <path fill="#28b446" d="m416.253 455.624.014.014C372.396 490.901 316.666 512 256 512c-97.491 0-182.252-54.491-225.491-134.681l82.961-67.91c21.619 57.698 77.278 98.771 142.53 98.771 28.047 0 54.323-7.582 76.87-20.818l83.383 68.262z"></path>
               <path fill="#f14336" d="m419.404 58.936-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z"></path>
-            </svg> Sign Up with Google </button>
+            </svg> Sign in with Google </button>
         </div>
         
       </div>
       <div class="mt-4 text-sm text-gray-600 text-center">
         <p>-----or-----</p>
       </div>
-      <form action="/signup" method="POST" class="space-y-4">
+      <form action="/signin" method="POST" class="space-y-4">
 
         <Inputfield text={"Username"} type={"text"} id={"username"} onChange={(e) => {
           setUsername(e.target.value)
@@ -125,57 +120,13 @@ export const Login = () => {
           setPassword(e.target.value)
         }} text={"Password"} type={"password"} id={"password"} pattern=".{8,}"/>
         
-        <section className="flex justify-around gap-1">
-          <Inputfield text={"First Name"} type={"text"} id={"firstName"} onChange={e => {
-          setFirstName(e.target.value);
-        }}/>
-          <Inputfield text={"Last name"} type={"text"} id={"lastName"} onChange={(e) => {
-          setLastName(e.target.value);
-        }}/>
-        </section>
-        
-          <Inputfield text={"State"} type={"text"} id={"state"} onChange={(e) => {
-          setState(e.target.value);
-        }}/>
-         <Inputfield text={"City"} type={"text"} id={"city"} onChange={(e) => {
-          setCity(e.target.value);
-        }}/>
-          <Inputfield text={"Pin Code"} type={"number"} id={"pincode"} onChange={(e) => {
-          setPincode(e.target.value)
-        }}/>
-          
-        <Inputfield text={"Address"} type={"text"} id={"address"} onChange={(e) => {
-          setAddress(e.target.value)
-        }}/>
         <div>
-        <label for="role" className="block text-sm font-medium text-[#00693B]">Role</label>     
-        
-        <select  onChange={(e) => {
-          setRole(e.target.value)
-        }} id="role" name="role" className="mt-1 text-sm font-medium text-gray-500 p-2 w-full border rounded-md focus:border-[#00693c8d] focus:border-2 focus:outline-none  transition-colors duration-300">
-            <option value="Physician">Physician</option>
-            <option value="Nurses">Nurses</option>
-            <option value="Patient">Patient</option>
-            <option value="Admin">Admin</option>
-            
-            
-        </select>
         </div>
-
-
-  
         <div>
           <button onClick={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
               username,
-              firstName,
-              lastName,
               password,
-              state,
-              city,
-              pincode,
-              address,
-              role
             });
             localStorage.setItem("token", response.data.token)
             navigate("/")
@@ -183,7 +134,7 @@ export const Login = () => {
         </div>
       </form>
       <div class="mt-4 text-sm text-gray-600 text-center">
-      <p>Already have an account? <Link to="/login" className="text-[#00693B] hover:underline">Login here</Link></p>
+      <p>Don't have an account? <Link to="/signup" className="text-[#00693B] hover:underline">Signup here</Link></p>
       </div>
     </div>
   </div>
