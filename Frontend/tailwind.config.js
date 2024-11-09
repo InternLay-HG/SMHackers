@@ -17,6 +17,9 @@ export default {
       },
       fontFamily: {
         jaldi: ["Jaldi", 'sans-serif'],
+        satoshi: ['Satoshi', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+
     },
     },
   },

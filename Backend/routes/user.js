@@ -6,6 +6,7 @@ const zod = require("zod");
 const { User } = require("../db/db.js");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
+const {getUserLocation} = require('../apis/hospital.js');
 
 const signupBody = zod.object({
     username: zod.string().email(),
@@ -15,17 +16,30 @@ const signupBody = zod.object({
     pincode: zod.number().int().min(100000, "Pincode must be a 6-digit number.").max(999999, "Pincode must be a 6-digit number."),
     state: zod.string().min(2, "State must be at least 2 characters long."),
     city: zod.string().min(2, "City must be at least 2 characters long."),
-    address: zod.string().min(5, "Address must be at least 5 characters long.")
+    address: zod.string().min(5, "Address must be at least 5 characters long."),
+    role: zod.string().min(3,"Role is required")
 });
 
+const getHospitals = require('../apis/hospital.js');
+
+router.get('/location', async (req, res) => {
+    const { lat, lon } = req.query;
+
+    if (!lat || !lon) {
+        return res.status(400).json({ error: "Latitude and longitude are required" });
+    }
+    getHospitals(lat, lon, req, res); 
+});
 
 router.post("/signup", async (req, res) => {
-    const { success } = signupBody.safeParse(req.body)
-    if (!success) {
-        return res.status(411).json({
-            message: "Email already taken / Incorrect inputs"
-        })
-    }
+    const { success, error } = signupBody.safeParse(req.body);
+if (!success) {
+  console.log("Validation Error:", error.errors); 
+  return res.status(411).json({
+    message: "Incorrect inputs",
+    errors: error.errors  // Optionally, send back the specific error messages for debugging
+  });
+}
 
     const existingUser = await User.findOne({
         username: req.body.username
@@ -46,7 +60,8 @@ router.post("/signup", async (req, res) => {
         pincode: req.body.pincode,
         state: req.body.state,
         city: req.body.city,
-        address: req.body.address
+        address: req.body.address,
+        role: req.body.role
 
     })
     const userId = user._id;
@@ -85,7 +100,8 @@ router.post("/signin", async (req, res) => {
         }, JWT_SECRET);
   
         res.json({
-            token: token
+            token: token ,
+            message: "user signed successfully"
         })
         return;
     }
