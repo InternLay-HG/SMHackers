@@ -20,16 +20,17 @@ const signupBody = zod.object({
     role: zod.string().min(3,"Role is required")
 });
 
-router.get('/location', async (req, res) => {
-    const { latitude, longitude } = req.query;
+const getHospitals = require('../apis/hospital.js');
 
-    if (!latitude || !longitude) {
+router.get('/location', async (req, res) => {
+    const { lat, lon } = req.query;
+
+    if (!lat || !lon) {
         return res.status(400).json({ error: "Latitude and longitude are required" });
     }
-
-    console.log(`Received location: Latitude: ${latitude}, Longitude: ${longitude}`);
-    res.json({ message: "Location data received successfully", latitude, longitude });
+    getHospitals(lat, lon, req, res); 
 });
+
 router.post("/signup", async (req, res) => {
     const { success, error } = signupBody.safeParse(req.body);
 if (!success) {

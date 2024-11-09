@@ -30,9 +30,14 @@ const Location = async () => {
 
     try {
         const position = await getUserLocation();
-        console.log(position); 
-        const response = await axios.get('http://localhost:3000/api/v1/user/location', { params: { lat: position.coords.latitude, lon: position.coords.longitude } });
-        console.log(response.data); 
+        console.log(position);
+        const response = await axios.get('http://localhost:3000/api/v1/user/location', { 
+            params: { 
+                lat: position.coords.latitude, 
+                lon: position.coords.longitude 
+            }
+        });
+        console.log(response.data);
     } catch (error) {
         console.error(error);
     }
