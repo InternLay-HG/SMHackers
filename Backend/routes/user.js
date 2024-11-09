@@ -1,6 +1,6 @@
 
 const express = require('express');
-
+const cors = require('cors');
 const router = express.Router();
 const zod = require("zod");
 const { User } = require("../db/db.js");
@@ -21,22 +21,23 @@ const signupBody = zod.object({
 });
 
 router.get('/location', async (req, res) => {
-    const { latitude, longitude } = req.query;
+    const { lat, lon } = req.query;
 
-    if (!latitude || !longitude) {
+    if (!lat || !lon) {
         return res.status(400).json({ error: "Latitude and longitude are required" });
     }
 
-    console.log(`Received location: Latitude: ${latitude}, Longitude: ${longitude}`);
-    res.json({ message: "Location data received successfully", latitude, longitude });
+    console.log(`Received location: Latitude: ${lat}, Longitude: ${lon}`);
+    res.json({ message: "Location data received successfully", latitude: lat, longitude: lon });
 });
+
 router.post("/signup", async (req, res) => {
     const { success, error } = signupBody.safeParse(req.body);
 if (!success) {
   console.log("Validation Error:", error.errors); 
   return res.status(411).json({
     message: "Incorrect inputs",
-    errors: error.errors  // Optionally, send back the specific error messages for debugging
+    errors: error.errors 
   });
 }
 
