@@ -1,0 +1,28 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite preview"
+  },
+  "dependencies": {
+    "@vercel/node": "^2.0.0", // Assuming you're using Vercel serverless functions
+    "vite": "^3.0.0"
+  },
+  "devDependencies": {},
+  "vercel": {
+    "builds": [
+      {
+        "src": "src/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/"
+      }
+    ]
+  }
+}

@@ -111,7 +111,7 @@ export const Login = () => {
       <div class="mt-4 text-sm text-gray-600 text-center">
         <p>-----or-----</p>
       </div>
-      <form action="/signin" method="POST" class="space-y-4">
+      <form action="/signin" method="POST" class="space-y-4" noValidate>
 
         <Inputfield text={"Username"} type={"text"} id={"username"} onChange={(e) => {
           setUsername(e.target.value)

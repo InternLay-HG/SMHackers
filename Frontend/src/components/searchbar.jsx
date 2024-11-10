@@ -1,5 +1,6 @@
 import searchicon from '../images/searchicon.png'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 export const SearchBar = ({
     text
 }) => {
@@ -7,7 +8,7 @@ export const SearchBar = ({
         <div className={`flex justify-center items-center p-2 bg-search bg-back-green h-40 md:h-64 relative shadow-lg `}>
             <div className=" w-full flex justify-center items-center">
                 <div className="flex items-center  justify-center w-1/2 h-14 md:h-16 rounded-[20px] px-4 bg-searchbar-background-green">
-                    <button onClick={Location}><img src={searchicon} alt="Search Icon" className="w-5 h-5 mr-2" /></button>
+                    <Link to='/appointments'><button type='submit'><img src={searchicon} alt="Search Icon" className="w-5 h-5 mr-2" /></button></Link>
                     <input 
                         className="bg-white/[0] w-full h-full outline-none p-4"
                         type="text" 
@@ -17,28 +18,4 @@ export const SearchBar = ({
             </div>
         </div>
     );
-};
-const Location = async () => {
-    async function getUserLocation() {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => resolve(position),
-                (error) => reject("Failed to get location")
-            );
-        });
-    }
-
-    try {
-        const position = await getUserLocation();
-        console.log(position);
-        const response = await axios.get('http://localhost:3000/api/v1/user/location', { 
-            params: { 
-                lat: position.coords.latitude, 
-                lon: position.coords.longitude 
-            }
-        });
-        console.log(response.data);
-    } catch (error) {
-        console.error(error);
-    }
 };
