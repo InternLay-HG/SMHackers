@@ -111,7 +111,19 @@ export const Login = () => {
       <div class="mt-4 text-sm text-gray-600 text-center">
         <p>-----or-----</p>
       </div>
-      <form action="/signin" method="POST" class="space-y-4" noValidate>
+      <form onSubmit={async (e) => {
+  e.preventDefault();  // Prevent the default form submission
+  const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+    username,
+    password,
+  });
+  localStorage.setItem("token", response.data.token);
+  if(response.status===200){
+    navigate('/');
+    console.log("The backend works perfect go fucking check the frontend")
+  }
+}} method="POST" class="space-y-4" noValidate>
+
 
         <Inputfield text={"Username"} type={"text"} id={"username"} onChange={(e) => {
           setUsername(e.target.value)
@@ -123,14 +135,7 @@ export const Login = () => {
         <div>
         </div>
         <div>
-          <button onClick={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
-              username,
-              password,
-            });
-            localStorage.setItem("token", response.data.token)
-            navigate("/")
-          }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Login</button>
+          <button  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Login</button>
         </div>
       </form>
       <div class="mt-4 text-sm text-gray-600 text-center">

@@ -124,8 +124,26 @@ export const Signup = () => {
       <div class="mt-4 text-sm text-gray-600 text-center">
         <p>-----or-----</p>
       </div>
-      <form action="/signup" method="POST" class="space-y-4" noValidate>
-
+      <form onSubmit={async () => {
+        e.preventDefault();
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+              username,
+              firstName,
+              lastName,
+              password,
+              state,
+              city,
+              pincode,
+              address,
+              role
+            });
+            localStorage.setItem("token", response.data.token)
+            if(response.status===200){
+              navigate('/');
+              console.log("The backend works perfect go fucking check the frontend")
+            }
+          }} method="POST" class="space-y-4" noValidate>
+            
         <Inputfield text={"Username"} type={"text"} id={"username"} onChange={(e) => {
           setUsername(e.target.value)
         }}/>
@@ -176,21 +194,7 @@ export const Signup = () => {
 
   
         <div>
-          <button onClick={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
-              username,
-              firstName,
-              lastName,
-              password,
-              state,
-              city,
-              pincode,
-              address,
-              role
-            });
-            localStorage.setItem("token", response.data.token)
-            navigate("/")
-          }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
+          <button type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
         </div>
       </form>
       <div class="mt-4 text-sm text-gray-600 text-center">
