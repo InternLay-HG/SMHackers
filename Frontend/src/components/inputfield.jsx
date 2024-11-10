@@ -5,7 +5,7 @@ export const Inputfield = (
     type,
     text,
     id,
-    pattern=".",
+    pattern=".*",
     onChange
   }
 ) => {

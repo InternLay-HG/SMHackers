@@ -94,7 +94,7 @@ export const Login = () => {
   
   <div class="w-full bg-[#f6fffb] lg:w-1/2 flex items-center justify-center">
     <div class="max-w-md w-full p-6">
-      <h1 class="text-3xl font-semibold mb-6 text-[#00693B] font-inter text-center">Sign Up</h1>
+      <h1 class="text-3xl font-semibold mb-6 text-[#00693B] font-inter text-center">Login</h1>
       <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
       <div class="mt-4 flex flex-col lg:flex-row items-center justify-between">
         <div class="w-full mb-2 lg:mb-0">
@@ -130,7 +130,7 @@ export const Login = () => {
             });
             localStorage.setItem("token", response.data.token)
             navigate("/")
-          }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
+          }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Login</button>
         </div>
       </form>
       <div class="mt-4 text-sm text-gray-600 text-center">

@@ -140,19 +140,6 @@ export const Signup = () => {
           <Inputfield text={"Last name"} type={"text"} id={"lastName"} onChange={(e) => {
           setLastName(e.target.value);
         }}/>
-        </section>
-        
-          <Inputfield text={"State"} type={"text"} id={"state"} onChange={(e) => {
-          setState(e.target.value);
-        }}/>
-         <Inputfield text={"City"} type={"text"} id={"city"} onChange={(e) => {
-          setCity(e.target.value);
-        }}/>
-          <Inputfield text={"Pin Code"} type={"number"} id={"pincode"}  onChange={handlePincodeChange}/>
-          
-        <Inputfield text={"Address"} type={"text"} id={"address"} onChange={(e) => {
-          setAddress(e.target.value)
-        }}/>
         <div>
         <label for="role" className="block text-sm font-medium text-[#00693B]">Role</label>     
         
@@ -167,6 +154,24 @@ export const Signup = () => {
             
         </select>
         </div>
+        </section>
+        
+        <section className="flex justify-centre gap-1">
+        <Inputfield text={"State"} type={"text"} id={"state"} onChange={(e) => {
+          setState(e.target.value);
+        }}/>
+         <Inputfield text={"City"} type={"text"} id={"city"} onChange={(e) => {
+          setCity(e.target.value);
+          
+        }}/>
+        <Inputfield text={"Pin Code"} type={"number"} id={"pincode"}  onChange={handlePincodeChange}/>
+        </section>
+         
+          
+        <Inputfield text={"Address"} type={"text"} id={"address"} onChange={(e) => {
+          setAddress(e.target.value)
+        }}/>
+        
 
 
   
