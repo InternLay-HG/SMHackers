@@ -50,13 +50,13 @@ export const Prescription = () => {
           
         </div>
       </div>
-      <div className="flex justify-around gap-10 px-10 py-6 bg-[#F6FFFBC7] h-48 sm:h-32 flex-wrap sm:flex-nowrap">
+      <div className="flex justify-around gap-10 px-10 py-6 bg-[#F6FFFBC7]  sm:h-32 flex-wrap mb-1 sm:flex-nowrap">
         <Button color={"bg-[#FFF4FA]"} text={"Medication"} subtext1={"Current"}  ></Button>
         <Button color={"bg-[#FFF4FA]"} text={"Prescription"} ></Button>
           
       </div>
 
-      <div className="current-med  flex justify-evenly">
+      <div className="current-med  flex justify-evenly gap-4 flex-col sm:flex-row">
         <Cardmed text={"Type-II Diabetes"}
           content={"8:00AM- Glipizide [1 tablet],\n8:30AM - Metformin[with breakfast],\n8:00PM - Metformin,\n9:00PM - Lantus [before bedtime]"}
         />
@@ -93,8 +93,8 @@ export const Prescription = () => {
           </div>
         ))
       )}
-    </div>
       </div>
+    </div>
        
     
     
