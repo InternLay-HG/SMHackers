@@ -7,6 +7,7 @@ import { Hospital } from "./Pages/hospital.jsx"
 import { Signup } from "./Pages/signup.jsx"
 import { Prescription } from "./Pages/Prescription.jsx";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DoctorsAppointment from "./Pages/DoctorsAppointment.jsx";
 
 function App(){
   return(
@@ -18,7 +19,7 @@ function App(){
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/records' element={<PrevRecords/>}></Route>
         <Route path='/lab' element={<Labrecords/>}></Route>
-        <Route path='/appointments' element={<Hospital/>}></Route>
+        <Route path='/appointments' element={<DoctorsAppointment/>}></Route>
         <Route path='/nurse/upload' element={<NurseUpload/>}></Route>
         <Route path="/prescription" element={<Prescription/>}></Route>
 

@@ -4,6 +4,7 @@ import {Inputfield} from '../components/inputfield'
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import axios from "axios";
+// import { signInWithGoogle } from '../components/firebaseConfig'
 
 export const Signup = () => {
 
@@ -111,7 +112,7 @@ export const Signup = () => {
       <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
       <div class="mt-4 flex flex-col lg:flex-row items-center justify-between">
         <div class="w-full mb-2 lg:mb-0">
-          <button type="button" class="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200  hover:bg-gray-8 hover:bg-green-100 shadow-md focus:shadow-lg  transition-colors duration-300">
+          <button class="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200  hover:bg-gray-8 hover:bg-green-100 shadow-md focus:shadow-lg  transition-colors duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4" id="google">
               <path fill="#fbbb00" d="M113.47 309.408 95.648 375.94l-65.139 1.378C11.042 341.211 0 299.9 0 256c0-42.451 10.324-82.483 28.624-117.732h.014L86.63 148.9l25.404 57.644c-5.317 15.501-8.215 32.141-8.215 49.456.002 18.792 3.406 36.797 9.651 53.408z"></path>
               <path fill="#518ef8" d="M507.527 208.176C510.467 223.662 512 239.655 512 256c0 18.328-1.927 36.206-5.598 53.451-12.462 58.683-45.025 109.925-90.134 146.187l-.014-.014-73.044-3.727-10.338-64.535c29.932-17.554 53.324-45.025 65.646-77.911h-136.89V208.176h245.899z"></path>
