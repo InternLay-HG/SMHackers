@@ -22,6 +22,7 @@ function App(){
         <Route path='/appointments' element={<DoctorsAppointment/>}></Route>
         <Route path='/nurse/upload' element={<NurseUpload/>}></Route>
         <Route path="/prescription" element={<Prescription/>}></Route>
+        <Route path='/hospitals' element={<Hospital/>}></Route>
 
         </Routes>
        </BrowserRouter>
