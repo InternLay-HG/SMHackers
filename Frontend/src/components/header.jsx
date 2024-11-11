@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export const Header = ({ text, onClick }) => {
   return (
     <div className="flex bg-[#f6fffb] justify-between p-2.5 sm:p-3 md:p-3.5 lg:p-4 shadow-lg">
-      <a className="font-jaldi text-3xl font-normal text-medic-green">
+      <Link to='/'><div className="font-jaldi text-3xl font-normal text-medic-green">
         <img className="w-14 h-7 sm:w-16 sm:h-8 md:w-20 md:h-10" src={logo} alt="logo" />
-      </a>
+      </div></Link>
       {text === "Logout" ? (
         <button 
           onClick={onClick} 

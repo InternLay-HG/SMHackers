@@ -48,7 +48,7 @@ export const Home = () => {
             <Link to='/records'>
               <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"} />
             </Link>
-            <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"} />
+            <Link to='/prescription'><Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"} /></Link>
             <Link to='/appointments'><Button color={"bg-[#FFF7DD]"} text={"Appointments"} image={Appointments} prop={"hidden"} /></Link>
             <Link to='/lab'>
               <Button color={"bg-[#E6F9E3]"} text={"Lab"} image={Lab} prop={"hidden"} />

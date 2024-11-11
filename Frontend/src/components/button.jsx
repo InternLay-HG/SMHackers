@@ -21,7 +21,7 @@ export const Button=({
                 
                    
                    <div className="text">
-                   <div className={`text-[#00693B] text-sm sm:text-base  lg:text-lg font-jaldi font-normal md:font-semibold ${prop} md:inline p-1 md:p-3 lg:p-4`}>
+                   <div className={`text-[#00693B] text-sm sm:text-base lg:text-lg font-jaldi font-normal md:font-semibold ${prop} md:inline p-1 md:p-3 lg:p-4`}>
                        {text}
                    </div>
                    {subtext1 && <div className={`text-[#00693B] text-left px-4 text-xs lg:text-sm font-jaldi font-thin md:font-medium ${prop}  `}>{subtext1}</div>}
