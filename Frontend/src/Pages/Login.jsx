@@ -118,6 +118,7 @@ export const Login = () => {
     password,
   });
   localStorage.setItem("token", response.data.token);
+  localStorage.setItem("userid", response.data.userid)
   if(response.status===200){
     navigate('/');
     console.log("The backend works perfect go fucking check the frontend")

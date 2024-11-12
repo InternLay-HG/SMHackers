@@ -72,6 +72,7 @@ if (!success) {
 
     res.json({
         message: "User created successfully",
+        userid:userId,
         token: token
     })
 })
@@ -99,8 +100,11 @@ router.post("/signin", async (req, res) => {
             userId: user._id
         }, JWT_SECRET);
   
+
+        const userId = user._id;
         res.json({
             token: token ,
+            userid:userId,
             message: "user signed successfully"
         })
         return;

@@ -184,6 +184,7 @@ export const Signup = () => {
               role
             });
             localStorage.setItem("token", response.data.token)
+            localStorage.setItem("userid", response.data.userid)
             navigate("/")
           }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
         </div>

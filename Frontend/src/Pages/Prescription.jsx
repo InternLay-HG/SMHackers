@@ -12,7 +12,7 @@ export const Prescription = () => {
   const [Prescriptions,setPrescription]= useState("");
   useEffect(async ()=>
     {
-      patientId=localStorage.getItem('_id');
+      patientId=localStorage.getItem('userid');
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/patient/prescription`, {
           params: { patientId } 
