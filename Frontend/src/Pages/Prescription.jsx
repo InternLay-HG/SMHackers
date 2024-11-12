@@ -5,6 +5,7 @@ import searchicon from '../images/searchicon.png'
 import medications from '../images/Medications.png'
 import { Cardmed } from '../components/Cardmed'
 import { Inputfield } from '../components/inputfield'
+import { useState ,useEffect } from 'react'
 import axios from "axios";
 export const Prescription = () => {
 
