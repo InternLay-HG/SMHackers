@@ -8,22 +8,20 @@ import { Inputfield } from '../components/inputfield'
 import axios from "axios";
 export const Prescription = () => {
 
-  // const [Prescriptions,setPrescription]= useState("");
-  const Prescriptions=[    {
-    doctorName: "Dr. Smith",
-    specialty: "Cardiologist",
-    medicines: [
-      { name: "Aspirin", timing: "Morning" },
-      { name: "Metoprolol", timing: "Evening" }
-    ]
-  },
-  {
-    doctorName: "Dr. Brown",
-    specialty: "Dermatologist",
-    medicines: [
-      { name: "Clindamycin", timing: "Night" }
-    ]
-  }];
+  const [Prescriptions,setPrescription]= useState("");
+  useEffect(async ()=>
+    {
+      patientId=localStorage.getItem('_id');
+      try {
+        const response = await axios.get(`http://localhost:3000/api/v1/patient/prescription`, {
+          params: { patientId } 
+        });
+        console.log(response.data);
+        setPrescription(response);
+      } catch (error) {
+        console.error("Error fetching prescriptions:", error);
+      }
+    },[]);
   return (
     <div className="bg-[#f6fffb] h-screen" >
       <Header text={"Login"}></Header>
@@ -149,16 +147,5 @@ const PrescriptionUploadFunction=async (doctorid,patientid,medicines)=>{
 }
   catch(err){
     console.log("Error Posting the data")
-  }
-}
-const PrescriptionGetFunction = async (patientId)=>{
-  try {
-    const response = await axios.get(`http://localhost:3000/api/v1/patient/prescription`, {
-      params: { patientId } 
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching prescriptions:", error);
   }
 }
