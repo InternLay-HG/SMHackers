@@ -5,7 +5,7 @@ import searchicon from '../images/searchicon.png'
 import medications from '../images/Medications.png'
 import { Cardmed } from '../components/Cardmed'
 import { Inputfield } from '../components/inputfield'
-
+import axios from "axios";
 export const Prescription = () => {
 
   // const [Prescriptions,setPrescription]= useState("");
@@ -136,4 +136,29 @@ export const PrescriptionUpload=()=>{
       <Inputfield></Inputfield>
     </div>
   )
+}
+const PrescriptionUploadFunction=async (doctorid,patientid,medicines)=>{
+  try{
+  const response = await axios.post("http://localhost:3000/api/v1/doctor/prescription",
+    {
+      doctor:doctorid,
+      patiend:patientid,
+      medicines:medicines
+    }
+  );
+}
+  catch(err){
+    console.log("Error Posting the data")
+  }
+}
+const PrescriptionGetFunction = async (patientId)=>{
+  try {
+    const response = await axios.get(`http://localhost:3000/api/v1/patient/prescription`, {
+      params: { patientId } 
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching prescriptions:", error);
+  }
 }
