@@ -5,7 +5,7 @@ const router = express.Router();
 const zod = require("zod");
 const { User } = require("../db/db.js");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../config");
+const { JWT_SECRET } = require("../config.js");
 const {getUserLocation} = require('../apis/hospital.js');
 
 const signupBody = zod.object({
