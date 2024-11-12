@@ -5,7 +5,7 @@ import { NurseUpload } from "./Pages/NurseUpload.jsx";
 import PrevRecords from "./Pages/PrevRecords.jsx";
 import { Hospital } from "./Pages/hospital.jsx"
 import { Signup } from "./Pages/signup.jsx"
-import { Prescription } from "./Pages/Prescription.jsx";
+import { Prescription, PrescriptionUpload } from "./Pages/Prescription.jsx";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DoctorsAppointment from "./Pages/DoctorsAppointment.jsx";
 
@@ -23,7 +23,7 @@ function App(){
         <Route path='/nurse/upload' element={<NurseUpload/>}></Route>
         <Route path="/prescription" element={<Prescription/>}></Route>
         <Route path='/hospitals' element={<Hospital/>}></Route>
-
+        <Route path='/uploadprescription' element={<PrescriptionUpload/>}></Route>
         </Routes>
        </BrowserRouter>
 

@@ -4,10 +4,11 @@ import { Button } from '../components/button'
 import searchicon from '../images/searchicon.png'
 import medications from '../images/Medications.png'
 import { Cardmed } from '../components/Cardmed'
+import { Inputfield } from '../components/inputfield'
 
 export const Prescription = () => {
 
-
+  // const [Prescriptions,setPrescription]= useState("");
   const Prescriptions=[    {
     doctorName: "Dr. Smith",
     specialty: "Cardiologist",
@@ -105,3 +106,34 @@ export const Prescription = () => {
   )
 }
 
+export const PrescriptionUpload=()=>{
+  return(
+    <div className="bg-[#f6fffb] h-screen" >
+      <Header text={"Login"}></Header>
+      <div className={`flex justify-center items-center p-2 bg-search bg-back-green h-32 md:h-44 relative shadow-lg `}>
+        <div className=" w-full flex justify-center items-center">
+          <div className="flex items-center shrink justify-center  w-1/2 h-12 md:h-16 rounded-[20px] px-4 bg-searchbar-background-green">
+            <button type="submit"><img src={searchicon} alt="Search Icon" className="w-5 h-5 mr-2" /></button>
+            <input 
+              className="bg-white/[0] w-full h-full outline-none p-4"
+              type="text" 
+              placeholder="Search Prescription.."
+            />
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#FFF4FA] flex align-center">
+        <div className="flex items-center p-1 md:p-1.5 lg:p-2">
+          <div className=" h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:w-12 lg:h-12  p-2  ">
+            <img src={medications} alt="Image"></img>
+          </div>
+          <div className="text-[#00693B] text-sm md:text-base lg:text-lg font-jaldi font-semibold  p-2 lg:p-4">
+            Medication
+          </div>
+          
+        </div>
+      </div>
+      <Inputfield></Inputfield>
+    </div>
+  )
+}
