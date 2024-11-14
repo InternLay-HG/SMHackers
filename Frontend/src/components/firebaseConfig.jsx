@@ -4,13 +4,14 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: "medic-7250d.firebaseapp.com",
-    projectId: "medic-7250d",
-    storageBucket: "medic-7250d.firebasestorage.app",
-    messagingSenderId: "902634115650",
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  };
+  apiKey: 'AIzaSyBye3rs1OqO_G8i-SEH_s1WZ4RWBtcT8eg',
+  authDomain: "medic-7250d.firebaseapp.com",
+  projectId: "medic-7250d",
+  storageBucket: "medic-7250d.firebasestorage.app",
+  messagingSenderId: "902634115650",
+  appId: '1:902634115650:web:bc769fc8bee5ba80c8d3db',
+};
+  
   
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

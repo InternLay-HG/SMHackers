@@ -41,7 +41,7 @@ export const Home = () => {
         onClick={isLoggedIn ? handleLogout : null}
       />
       
-      {isLoggedIn && (
+      {/* {isLoggedIn && ( */}
         <>
           <SearchBar text={"Search records, appointments, insurance..."} />
           <div className="flex justify-evenly gap-5 sm:gap-0 px-10 py-8 sm:py-9 md:py-10 bg-[#F6FFFBC7] h-36 flex-wrap sm:flex-nowrap">
@@ -53,7 +53,7 @@ export const Home = () => {
             <Link to='/lab'>
               <Button color={"bg-[#E6F9E3]"} text={"Lab"} image={Lab} prop={"hidden"} />
             </Link>
-            <Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} />
+            <Link to='/prescriptionform'><Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} /></Link>
           </div>
           <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
             <Card text={"Reminder"} image={Reminder} />
@@ -63,7 +63,7 @@ export const Home = () => {
             <Card text={"Allergies"} image={Allergies} />
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
   );
 };

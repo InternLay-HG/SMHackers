@@ -8,6 +8,7 @@ import { Signup } from "./Pages/signup.jsx"
 import { Prescription, PrescriptionUpload } from "./Pages/Prescription.jsx";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DoctorsAppointment from "./Pages/DoctorsAppointment.jsx";
+import { PrescriptionForm } from "./components/PrescriptionForm.jsx";
 
 function App(){
   return(
@@ -24,6 +25,7 @@ function App(){
         <Route path="/prescription" element={<Prescription/>}></Route>
         <Route path='/hospitals' element={<Hospital/>}></Route>
         <Route path='/uploadprescription' element={<PrescriptionUpload/>}></Route>
+        <Route path='/prescriptionform' element={<PrescriptionForm/>}></Route>
         </Routes>
        </BrowserRouter>
 
