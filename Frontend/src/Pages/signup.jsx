@@ -175,10 +175,10 @@ import { signInWithGoogle } from "../components/firebaseConfig";
         <select  onChange={(e) => {
           setRole(e.target.value)
         }} id="role" name="role" className="mt-1 text-sm font-medium text-gray-500 p-2 w-full border rounded-md focus:border-[#00693c8d] focus:border-2 focus:outline-none  transition-colors duration-300">
-            <option value="Physician">Physician</option>
-            <option value="Nurses">Nurses</option>
-            <option value="Patient">Patient</option>
-            <option value="Admin">Admin</option>
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurses</option>
+            <option value="patient">Patient</option>
+            <option value="admin">Admin</option>
             
             
         </select>
@@ -201,7 +201,7 @@ import { signInWithGoogle } from "../components/firebaseConfig";
             });
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("userid", response.data.userid)
-            navigate("/")
+            await navigate("/")
           }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
         </div>
       </form>

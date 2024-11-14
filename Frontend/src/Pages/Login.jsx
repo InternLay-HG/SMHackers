@@ -132,7 +132,8 @@ import { signInWithGoogle } from "../components/firebaseConfig";
     password,
   });
   localStorage.setItem("token", response.data.token);
-  localStorage.setItem("userid", response.data.userid)
+  localStorage.setItem("userid", response.data.userid);
+  // console.log(localStorage.getItem('userid'));
   if(response.status===200){
     navigate('/');
     console.log("The backend works perfect go fucking check the frontend")

@@ -1,5 +1,5 @@
 const express = require('express');
-const { Prescription } = require("../db/prescription");
+const  Prescription = require("../db/prescription");
 const { User } = require("../db/db"); 
 
 const router = express.Router();

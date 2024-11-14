@@ -3,13 +3,8 @@ const router = express.Router();
 const zod = require('zod');
 const multer = require('multer');
 const { User } = require('../db/db.js');
-const { Prescription } = require('../db/prescription.js');
+const Prescription = require('../db/prescription.js');
 
-// Dynamically import mime to avoid ESM conflicts
-async function loadMime() {
-  const mime = await import('mime');
-  return mime;
-}
 
 const prescriptionSchema = zod.object({
   doctor: zod.string().nonempty('Doctor ID is required'),
@@ -50,10 +45,10 @@ router.post('/prescription', async (req, res) => {
       patient: prescriptionData.data.patient,
       medicines: prescriptionData.data.medicines,
     });
-
+    console.log(prescription);
     res.status(201).json({ message: 'Prescription created successfully', prescription });
   } catch (error) {
-    console.error(error);
+    console.log(error)
     res.status(500).json({ error: 'An error occurred while creating the prescription' });
   }
 });

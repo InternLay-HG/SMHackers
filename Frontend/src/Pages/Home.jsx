@@ -41,7 +41,7 @@ export const Home = () => {
         onClick={isLoggedIn ? handleLogout : null}
       />
       
-      {/* {isLoggedIn && ( */}
+      {isLoggedIn && (
         <>
           <SearchBar text={"Search records, appointments, insurance..."} />
           <div className="flex justify-evenly gap-5 sm:gap-0 px-10 py-8 sm:py-9 md:py-10 bg-[#F6FFFBC7] h-36 flex-wrap sm:flex-nowrap">
@@ -63,7 +63,7 @@ export const Home = () => {
             <Card text={"Allergies"} image={Allergies} />
           </div>
         </>
-      {/* )} */}
+      )} 
     </div>
   );
 };

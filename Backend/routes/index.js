@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.use("/user", userRouter);
 router.use("/doctor",doctorRouter);
-// router.use('/patient',patientRouter);
+router.use('/patient',patientRouter);
 
 module.exports = router;
