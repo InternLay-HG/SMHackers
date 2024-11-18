@@ -31,7 +31,7 @@ import { signInWithGoogle } from "../components/firebaseConfig";
   const [city,setCity]=useState("");
   const [pincode,setPincode]=useState(0);
   const [address,setAddress]=useState("")
-  const [role,setRole]=useState("");
+  const [role,setRole]=useState("patient");
 
   const handlePincodeChange = (e) => {
     const value = e.target.value;
@@ -172,8 +172,9 @@ import { signInWithGoogle } from "../components/firebaseConfig";
         <div>
         <label for="role" className="block text-sm font-medium text-[#00693B]">Role</label>     
         
-        <select  onChange={(e) => {
-          setRole(e.target.value)
+              <select onChange={(e) => {
+                setRole(e.target.value)
+                console.log(e.target.value);
         }} id="role" name="role" className="mt-1 text-sm font-medium text-gray-500 p-2 w-full border rounded-md focus:border-[#00693c8d] focus:border-2 focus:outline-none  transition-colors duration-300">
             <option value="doctor">Doctor</option>
             <option value="nurse">Nurses</option>
@@ -187,7 +188,8 @@ import { signInWithGoogle } from "../components/firebaseConfig";
 
   
         <div>
-          <button onClick={async () => {
+              <button onClick={async (e) => {
+                e.preventDefault();
             const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
               username,
               firstName,
@@ -201,7 +203,7 @@ import { signInWithGoogle } from "../components/firebaseConfig";
             });
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("userid", response.data.userid)
-            await navigate("/")
+                navigate("/");
           }}  type="submit" className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300">Sign Up</button>
         </div>
       </form>
