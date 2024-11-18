@@ -7,6 +7,8 @@ const { User } = require("../db/db.js");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config.js");
 const {getUserLocation} = require('../apis/hospital.js');
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const signupBody = zod.object({
     username: zod.string().email(),
@@ -33,87 +35,83 @@ router.get('/location', async (req, res) => {
 
 router.post("/signup", async (req, res) => {
     const { success, error } = signupBody.safeParse(req.body);
-if (!success) {
-  console.log("Validation Error:", error.errors); 
-  return res.status(411).json({
-    message: "Incorrect inputs",
-    errors: error.errors  // Optionally, send back the specific error messages for debugging
-  });
-}
-
-    const existingUser = await User.findOne({
-        username: req.body.username
-    })
-
-    if (existingUser) {
-        return res.status(411).json({
-            message: "Email already taken/Incorrect inputs"
-        })
+    if (!success) {
+      console.log("Validation Error:", error.errors);
+      return res.status(411).json({
+        message: "Incorrect inputs",
+        errors: error.errors
+      });
     }
-
-    const user = await User.create({
+  
+    const existingUser = await User.findOne({ username: req.body.username });
+  
+    if (existingUser) {
+      return res.status(411).json({
+        message: "Email already taken / Incorrect inputs"
+      });
+    }
+  
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      const user = await User.create({
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword, 
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        password: req.body.password,
         pincode: req.body.pincode,
         state: req.body.state,
         city: req.body.city,
         address: req.body.address,
         role: req.body.role
-
-    })
-    const userId = user._id;
-
-    const token = jwt.sign({
-        userId
-    }, JWT_SECRET);
-
-    res.json({
+      });
+  
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+  
+      res.json({
         message: "User created successfully",
-        userid:userId,
+        userid: user._id,
         token: token
-    })
-})
-
-const signinBody = zod.object({
+      });
+    } catch (err) {
+      console.error("Error during signup:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  const signinBody = zod.object({
     username: zod.string().email(),
 	password: zod.string()
 })
-
-router.post("/signin", async (req, res) => {
-    const { success } = signinBody.safeParse(req.body)
+  router.post("/signin", async (req, res) => {
+    const { success } = signinBody.safeParse(req.body);
     if (!success) {
-        return res.status(411).json({
-            message: "Email already taken / Incorrect inputs"
-        })
+      return res.status(411).json({
+        message: "Incorrect inputs"
+      });
     }
-
-    const user = await User.findOne({
-        username: req.body.username,
-        password: req.body.password
-    });
-
-    if (user) {
-        const token = jwt.sign({
-            userId: user._id
-        }, JWT_SECRET);
   
-
-        const userId = user._id;
-        res.json({
-            token: token ,
-            userid:userId,
-            message: "user signed successfully"
-        })
-        return;
+    try {
+      const user = await User.findOne({ username: req.body.username });
+  
+      if (user) {
+        const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+        if (isPasswordValid) {
+          const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+          res.json({
+            token: token,
+            userid: user._id,
+            message: "User signed in successfully"
+          });
+          return;
+        }
+      }
+  
+      res.status(411).json({
+        message: "Invalid username or password"
+      });
+    } catch (err) {
+      console.error("Error during signin:", err);
+      res.status(500).json({ message: "Internal server error" });
     }
-
-    
-    res.status(411).json({
-        message: "Error while logging in"
-    })
-})
+  });
 
 module.exports = router;
