@@ -64,9 +64,7 @@ export const Prescription = () => {
             '8:00AM- Glipizide [1 tablet],\n8:30AM - Metformin[with breakfast],\n8:00PM - Metformin,\n9:00PM - Lantus [before bedtime]'
           }
         />
-      </div>
-
-      <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip">
+        <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip">
         {Prescriptions.length === 0 ? (
           <p>No prescription yet.</p>
         ) : (
@@ -93,6 +91,9 @@ export const Prescription = () => {
           ))
         )}
       </div>
+      </div>
+
+      
     </div>
   );
 };
