@@ -1,4 +1,4 @@
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "../components/button";
 import { Header } from "../components/header";
 import { SearchBar } from "../components/searchbar";
@@ -16,12 +16,6 @@ import { Card } from "../components/card.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  const [isDivVisible, setDivVisible] = useState(false);
-  const buttonRef = useRef(null);
-
-  const handleButtonClick = () => {
-    setDivVisible(!isDivVisible);
-  };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -41,16 +35,15 @@ export const Home = () => {
   };
 
   return (
-    
     <div className="bg-[#f6fffb] h-screen">
       <Header 
         text={isLoggedIn ? "Logout" : "Login"} 
         onClick={isLoggedIn ? handleLogout : null}
       />
       
-      {/* {isLoggedIn && ( */}
+      {isLoggedIn && (
         <>
-          <SearchBar text={"Search records, appointments, insurance..."} />
+          <SearchBar text={"Search nearby hospitals"} />
           <div className="flex justify-evenly gap-5 sm:gap-0 px-10 py-8 sm:py-9 md:py-10 bg-[#F6FFFBC7] h-36 flex-wrap sm:flex-nowrap">
             <Link to='/records'>
               <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"} />
@@ -60,23 +53,7 @@ export const Home = () => {
             <Link to='/lab'>
               <Button color={"bg-[#E6F9E3]"} text={"Lab"} image={Lab} prop={"hidden"} />
             </Link>
-            <div className="relative">
-              <Button ref={buttonRef} onClick={handleButtonClick} color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} />
-              {isDivVisible && (
-              <div className="absolute top-full -left-4 md:-left-2 lg:left-0 mt-2 w-28 md:w-48  lg:w-full  p-2 z-10"
-              style={{
-                top: buttonRef.current ? buttonRef.current.offsetHeight : 0,
-              }}
-    >
-              <p className=" p-3 md:p-5 text-[#92C1B6] w-28 md-w-48  lg:w-full sm:text-base  font-inter text-sm bg-white  rounded-xl">
-                This is some data inside the div!
-              </p>
-              </div>
-              )}
-          </div>
-        
-        
-            
+            <Link to='/prescriptionform'><Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} /></Link>
           </div>
           <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
             <Card text={"Reminder"} image={Reminder} />
@@ -86,7 +63,7 @@ export const Home = () => {
             <Card text={"Allergies"} image={Allergies} />
           </div>
         </>
-      {/* )}  */}
+       )} 
     </div>
   );
 };
