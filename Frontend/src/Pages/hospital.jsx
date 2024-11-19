@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Phone from '../images/phone.svg';
 import Mail from '../images/Mail.svg';
-
 export const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
+  const [mapData, setMapData] = useState(null);
+
+  const openGoogleMaps = (latitude, longitude) => {
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    window.open(url, '_blank');
+  };
 
   useEffect(() => {
     const fetchHospitals = async () => {
       try {
         const position = await getUserLocation();
+        setMapData(position.coords);
+
         const response = await axios.get('http://localhost:3000/api/v1/user/location', { 
           params: { 
             lat: position.coords.latitude, 
@@ -56,18 +63,27 @@ export const Hospital = () => {
         <div>No hospitals found</div>
       ) : (
         hospitals.map((building) => {
-          const { tags } = building;
+          const { id, lat, lon, tags } = building;
           return (
-            <div key={building.id} className="p-3 md:p-5 w-full flex shrink justify-between shadow-md text-[#92C1B6] sm:text-base font-inter text-sm bg-white rounded-xl mb-4">
+            <div key={id} className="p-3 md:p-5 w-full flex shrink justify-between shadow-md text-[#92C1B6] sm:text-base font-inter text-sm bg-white rounded-xl mb-4">
               <div className="p-1">
-                <h2 className="p-2 text-base md:text-lg lg:text-xl font-medium md:font-semibold">{tags.name}</h2>
-                <p className="px-2 pb-1 sm:text-sm md:text-base">{tags["addr:district"]}, {tags["addr:state"]}</p> {/* Address */}
-                <p className="px-2 pb-1 sm:text-sm md:text-base">{tags["addr:full"]}</p> {/* Full address */}
+                <h2 className="p-2 text-base md:text-lg lg:text-xl font-medium md:font-semibold">{tags.name || "Unnamed Hospital"}</h2>
+                <p className="px-2 pb-1 sm:text-sm md:text-base">{tags["addr:district"]}, {tags["addr:state"]}</p>
+                <p className="px-2 pb-1 sm:text-sm md:text-base">{tags["addr:full"] || "Full address not available"}</p>
                 <hr className="font-bold" />
               </div>
               <div className="p-4 flex items-center justify-around gap-8">
-                <img src={Phone} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" alt="Phone" />
-                <img src={Mail} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" alt="Mail" />
+                <img 
+                  src={Phone} 
+                  onClick={() => openGoogleMaps(lat, lon)} 
+                  className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" 
+                  alt="Phone" 
+                />
+                <img 
+                  src={Mail} 
+                  className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" 
+                  alt="Mail" 
+                />
               </div>
             </div>
           );

@@ -1,11 +1,22 @@
 const mongoose = require('mongoose');
+const gridfs = require('mongoose-gridfs');
 
-const labReportsSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  // other fields for lab reports, e.g., test results, date
-  reportDetails: String,
-  createdAt: { type: Date, default: Date.now },
+
+const { model: PDFModel } = gridfs({
+  collection: 'pdfFiles',
+  model: 'PDFFile',
+  mongooseConnection: mongoose.connection,
 });
 
-const LabReports = mongoose.model('LabReports', labReportsSchema);
-module.exports = LabReports;
+const labreportSchema = new mongoose.Schema({
+  pdfFileId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PDFFile',
+    required: true,
+  },
+});
+
+module.exports = {
+  Labreport: mongoose.model('Labreport', labreportSchema),
+  PDFModel,
+};
