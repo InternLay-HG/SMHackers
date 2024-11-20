@@ -356,7 +356,7 @@ export const SignupGoogle = () => {
                 onClick={async (e) => {
                   e.preventDefault();
                   const response = await axios.post(
-                    "https://smhackers.onrender.com/3000/api/v1/user/signup",
+                    "https://smhackers.onrender.com:3000/api/v1/user/signup",
                     {
                       username,
                       firstName,

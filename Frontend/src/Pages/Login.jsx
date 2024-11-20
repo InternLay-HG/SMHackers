@@ -18,7 +18,7 @@ export const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const response = await axios.post(
-        "https://smhackers.onrender.com/3000/api/v1/user/signin",
+        "https://smhackers.onrender.com:3000/api/v1/user/signin",
         {
           username,
           password:"Google"
@@ -338,7 +338,7 @@ export const Login = () => {
             onSubmit={async (e) => {
               e.preventDefault(); // Prevent the default form submission
               const response = await axios.post(
-                "https://smhackers.onrender.com/3000/api/v1/user/signin",
+                "https://smhackers.onrender.com:3000/api/v1/user/signin",
                 {
                   username,
                   password
