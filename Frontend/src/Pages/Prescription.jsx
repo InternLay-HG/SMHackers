@@ -16,7 +16,7 @@ export const Prescription = () => {
     const patientId = localStorage.getItem('userid');
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/patient/prescription', {
+        const response = await axios.get('https://smhackers.onrender.com/api/v1/patient/prescription', {
           params: { patientId },
         });
         console.log(response.data);
@@ -160,7 +160,7 @@ export const PrescriptionForm = () => {
 
 const PrescriptionUploadFunction=async (doctorid,patientid,medicines)=>{
   try{
-  const response = await axios.post("http://localhost:3000/api/v1/doctor/prescription",
+  const response = await axios.post("https://smhackers.onrender.com/api/v1/doctor/prescription",
     {
       doctor:doctorid,
       patiend:patientid,

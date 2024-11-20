@@ -19,7 +19,7 @@ export const Hospital = () => {
         const position = await getUserLocation();
         setMapData(position.coords);
 
-        const response = await axios.get('http://localhost:3000/api/v1/user/location', { 
+        const response = await axios.get('https://smhackers.onrender.com/api/v1/user/location', { 
           params: { 
             lat: position.coords.latitude, 
             lon: position.coords.longitude 
