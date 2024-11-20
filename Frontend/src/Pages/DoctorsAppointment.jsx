@@ -16,7 +16,7 @@ import { CardAppoint } from "../components/CardAppoint.jsx";
 
 // Adding the CSS styles directly in the component
 const DoctorsAppointment = () => {
-
+  
   const DocAppoint=[   {
     doctorName: "Dr. Smith",
     specialty: "Cardiologist",
