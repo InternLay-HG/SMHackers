@@ -4,10 +4,9 @@ import { Inputfield } from "../components/inputfield";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { signInWithGoogle } from "../components/firebaseConfig";
 
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../components/firebaseConfig"; // Your Firebase config file
+import { auth } from "../components/firebaseConfig";
 
 export const Login = () => {
   //
@@ -26,17 +25,16 @@ export const Login = () => {
       );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userid", response.data.userid);
-      // console.log(localStorage.getItem('userid'));
       if (response.status === 200) {
         navigate("/");
       }
-      // You can store these in state or localStorage if needed
     } catch (error) {
       console.error("Error during Google login:", error);
     }
   };
-  //
 
+
+  //
   // const handleGoogleLogin = (event) => {
   //   event.preventDefault();
   //   signInWithGoogle()
@@ -46,10 +44,10 @@ export const Login = () => {
   //       })
   //       .catch((error) => {
   //         console.error("Login error:", error);
-  //         // alert("Failed to login with Google.");
   //       });
   //     };
-
+  //
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
