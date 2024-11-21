@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header } from "../components/header.jsx"
 import searchicon from '../images/searchicon.png'
-import lab from '../images/lab.png'
+import lab from '../images/Lab.png'
 import {Button} from "../components/button.jsx"
 import { Click } from '../components/click.jsx'
 
