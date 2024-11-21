@@ -50,7 +50,7 @@ export const Login = () => {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errorMessage,setError]=useState("");
   const navigate = useNavigate();
 
   return (
@@ -334,6 +334,7 @@ export const Login = () => {
           </div>
           <form
             onSubmit={async (e) => {
+              try{
               e.preventDefault(); // Prevent the default form submission
               const response = await axios.post(
                 "http://localhost:3000/api/v1/user/signin",
@@ -351,6 +352,10 @@ export const Login = () => {
                   "The backend works perfect go fucking check the frontend"
                 );
               }
+            }
+            catch(error){
+              setError(error.response.data.message);
+            }
             }}
             method="POST"
             class="space-y-4"
@@ -376,6 +381,9 @@ export const Login = () => {
 
             <div></div>
             <div>
+              <div className="text-red-600 opacity-70">
+                {errorMessage!==""?<p>{errorMessage}</p>:null}
+              </div>
               <button
                 type="submit"
                 className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300"

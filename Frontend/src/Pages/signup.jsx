@@ -47,6 +47,7 @@ export const Signup = () => {
   const [pincode, setPincode] = useState(0);
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("patient");
+  const [errorMessage,setError]=useState("");
 
   const handlePincodeChange = (e) => {
     const value = e.target.value;
@@ -430,8 +431,12 @@ export const Signup = () => {
             </div>
 
             <div>
+            <div className="text-red-600 opacity-70">
+              {errorMessage !== "" ? <p>{errorMessage}</p> : null}
+              </div>
               <button
                 onClick={async (e) => {
+                  try{
                   e.preventDefault();
                   const response = await axios.post(
                     "http://localhost:3000/api/v1/user/signup",
@@ -450,6 +455,10 @@ export const Signup = () => {
                   localStorage.setItem("token", response.data.token);
                   localStorage.setItem("userid", response.data.userid);
                   navigate("/");
+                }
+                  catch(error){
+                    setError(error.response.data.message);
+                  }
                 }}
                 type="submit"
                 className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300"
