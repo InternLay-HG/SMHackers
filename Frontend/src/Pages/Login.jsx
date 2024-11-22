@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../components/firebaseConfig";
+import tickimg from "../images/tick.svg"
 
 export const Login = () => {
   //
@@ -50,11 +51,20 @@ export const Login = () => {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errorMessage,setError]=useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
   return (
     <div class="flex h-screen">
+      {isSuccess && ( // Success pop-up
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 p-4 bg-green-100 text-green-700 rounded shadow-md z-50">
+          
+            <img className="inline h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mx-2" src={tickimg} alt="" />
+         
+          Login Successful! 
+        </div>
+      )}
       <div class="hidden lg:flex items-center justify-center flex-1 bg-[#00693cac] bg-search bg-opacity-5">
         <div class="max-w-md text-center">
           <svg
@@ -334,6 +344,7 @@ export const Login = () => {
           </div>
           <form
             onSubmit={async (e) => {
+              try{
               e.preventDefault(); // Prevent the default form submission
               const response = await axios.post(
                 "http://localhost:3000/api/v1/user/signin",
@@ -346,11 +357,20 @@ export const Login = () => {
               localStorage.setItem("userid", response.data.userid);
               // console.log(localStorage.getItem('userid'));
               if (response.status === 200) {
-                navigate("/");
+                setIsSuccess(true); // Set success state
+                  setTimeout(() => {
+                    setIsSuccess(false); // Hide pop-up after 3 seconds
+                    navigate("/"); // Navigate to home 
+                    }, 1000);
+                
                 console.log(
-                  "The backend works perfect go fucking check the frontend"
+                  "lets gooo"
                 );
               }
+            }
+            catch(error){
+              setError(error.response.data.message);
+            }
             }}
             method="POST"
             class="space-y-4"
@@ -376,6 +396,9 @@ export const Login = () => {
 
             <div></div>
             <div>
+            {errorMessage!==""?<div className="p-2 md:p-3 lg:p-4 bg-red-100 mb-4 rounded-md">
+                <p className="block text-sm font-medium text-[#f44646]">{errorMessage}</p>
+              </div>:null}
               <button
                 type="submit"
                 className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300"

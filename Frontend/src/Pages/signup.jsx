@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../components/firebaseConfig"; // Your Firebase config file
+import tickimg from "../images/tick.svg"
 
 
 export const Signup = () => {
@@ -47,6 +48,8 @@ export const Signup = () => {
   const [pincode, setPincode] = useState(0);
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("patient");
+  const [errorMessage,setError]=useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handlePincodeChange = (e) => {
     const value = e.target.value;
@@ -59,6 +62,14 @@ export const Signup = () => {
 
   return (
     <div class="flex h-screen">
+      {isSuccess && ( // Success pop-up
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 p-4 bg-green-100 text-green-700 rounded shadow-md z-50">
+          
+            <img src={tickimg} alt="" />
+         
+          Registration Successful! Redirecting...
+        </div>
+      )}
       <div class="hidden lg:flex items-center justify-center flex-1 bg-[#00693cac] bg-search bg-opacity-5">
         <div class="max-w-md text-center">
           <svg
@@ -430,8 +441,12 @@ export const Signup = () => {
             </div>
 
             <div>
+            {errorMessage!==""?<div className="p-2 md:p-3 lg:p-4 bg-red-100 mb-4 rounded-md">
+                <p className="block text-sm font-medium text-[#f44646]">{errorMessage}</p>
+              </div>:null}
               <button
                 onClick={async (e) => {
+                  try{
                   e.preventDefault();
                   const response = await axios.post(
                     "http://localhost:3000/api/v1/user/signup",
@@ -449,7 +464,16 @@ export const Signup = () => {
                   );
                   localStorage.setItem("token", response.data.token);
                   localStorage.setItem("userid", response.data.userid);
-                  navigate("/");
+                  setIsSuccess(true); // Set success state
+                  setTimeout(() => {
+                    setIsSuccess(false); // Hide pop-up after 3 seconds
+                    navigate("/"); // Navigate to home or login
+                    }, 1000);
+                  
+                }
+                  catch(error){
+                    setError(error.response.data.message);
+                  }
                 }}
                 type="submit"
                 className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300"
