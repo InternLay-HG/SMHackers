@@ -14,15 +14,18 @@ import Chronic from '../images/Chronic.svg';
 import Allergies from '../images/Allergies.svg';
 import { Card } from "../components/card.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from 'recoil';
+import { isLoggedInAtom } from '../../atoms/loginAtom.jsx';
 import {Homepage} from "../components/Homepage.jsx";
 
 export const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
+  const [Role,setRole]=useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
+    setRole(localStorage.getItem('role'));
     if (token) {
       setIsLoggedIn(true);
     }
@@ -37,10 +40,7 @@ export const Home = () => {
 
   return (
     <div className="bg-[#f6fffb] h-screen">
-      <Header 
-        text={isLoggedIn ? "Logout" : "Login"} 
-        onClick={isLoggedIn ? handleLogout : null}
-      />
+      <Header/>
       
       {isLoggedIn?
         <>
@@ -49,12 +49,14 @@ export const Home = () => {
             <Link to='/records'>
               <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"} />
             </Link>
-            <Link to='/prescription'><Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"} /></Link>
+            <Link to={Role === "doctor" ? '/prescriptionform' : '/prescription'}>
+            <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"} />
+            </Link>
             <Link to='/appointments'><Button color={"bg-[#FFF7DD]"} text={"Appointments"} image={Appointments} prop={"hidden"} /></Link>
             <Link to='/lab'>
               <Button color={"bg-[#E6F9E3]"} text={"Lab"} image={Lab} prop={"hidden"} />
             </Link>
-            <Link to='/prescriptionform'><Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} /></Link>
+            <Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} />
           </div>
           <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
             <Card text={"Reminder"} image={Reminder} />

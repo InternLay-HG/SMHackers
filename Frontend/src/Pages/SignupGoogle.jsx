@@ -371,6 +371,7 @@ export const SignupGoogle = () => {
                   );
                   localStorage.setItem("token", response.data.token);
                   localStorage.setItem("userid", response.data.userid);
+                  localStorage.setItem("role",response.data.role);
                   navigate("/");
                 }}
                 type="submit"

@@ -10,6 +10,7 @@ import { Button } from "../components/button";
 import { Header } from "../components/header.jsx"
 import Appointments from '../images/Appointments.png';
 import { CardAppoint } from "../components/CardAppoint.jsx";
+import { Link } from "react-router-dom";
 
 
 
@@ -63,7 +64,7 @@ const DoctorsAppointment = () => {
         <Button color={"bg-[#FFF7DD]"} text={"Appointments"} subtext1={"Previous"}></Button>
         <Button color={"bg-[#FFF7DD]"} text={"Appointments"} subtext1={"Upcoming "}></Button>
         <Button color={"bg-[#FFF7DD]"} text={"Scheduled this Week"} ></Button>
-        <Button color={"bg-[#FFF7DD]"} text={"Book Appointment"} ></Button>
+        <Link to='/appointments/book'><Button color={"bg-[#FFF7DD]"} text={"Book Appointment"} ></Button></Link>
           
       </div>
       {DocAppoint.length === 0 ? (

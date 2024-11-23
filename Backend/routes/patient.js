@@ -30,5 +30,8 @@ router.get('/prescription', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+router.post('/confirmAppointments', async (req,res)=>{
+      
+});
 
 module.exports = router;

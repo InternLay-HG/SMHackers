@@ -26,6 +26,7 @@ export const Login = () => {
       );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userid", response.data.userid);
+      localStorage.setItem("role",response.data.role);
       if (response.status === 200) {
         navigate("/");
       }
@@ -355,6 +356,7 @@ export const Login = () => {
               );
               localStorage.setItem("token", response.data.token);
               localStorage.setItem("userid", response.data.userid);
+              localStorage.setItem("role",response.data.role);
               // console.log(localStorage.getItem('userid'));
               if (response.status === 200) {
                 setIsSuccess(true); // Set success state
