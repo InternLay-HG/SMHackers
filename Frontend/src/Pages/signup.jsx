@@ -464,6 +464,7 @@ export const Signup = () => {
                   );
                   localStorage.setItem("token", response.data.token);
                   localStorage.setItem("userid", response.data.userid);
+                  localStorage.setItem("role",response.data.role);
                   setIsSuccess(true); // Set success state
                   setTimeout(() => {
                     setIsSuccess(false); // Hide pop-up after 3 seconds

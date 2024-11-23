@@ -20,7 +20,7 @@ export const Prescription = () => {
           params: { patientId },
         });
         console.log(response.data);
-        setPrescription(response.data.prescriptions); // Make sure to set only the prescriptions array
+        setPrescription(response.data.prescriptions); 
       } catch (error) {
         console.error('Error fetching prescriptions:', error);
       }
