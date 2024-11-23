@@ -48,7 +48,7 @@ export const Home = () => {
             <Link to='/records'>
               <Button color={"bg-[#E5FDFF]"} text={"Records"} image={Records} prop={"hidden"} />
             </Link>
-            <Link to={Role === "doctor" ? '/prescription' : '/prescriptionform'}>
+            <Link to={Role === "doctor" ? '/prescriptionform' : '/prescription'}>
             <Button color={"bg-[#FFF4FA]"} text={"Medications"} image={Medications} prop={"hidden"} />
             </Link>
             <Link to='/appointments'><Button color={"bg-[#FFF7DD]"} text={"Appointments"} image={Appointments} prop={"hidden"} /></Link>
