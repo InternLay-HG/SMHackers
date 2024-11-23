@@ -14,9 +14,11 @@ import Chronic from '../images/Chronic.svg';
 import Allergies from '../images/Allergies.svg';
 import { Card } from "../components/card.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from 'recoil';
+import { isLoggedInAtom } from '../../atoms/loginAtom.jsx';
 
 export const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,10 +38,7 @@ export const Home = () => {
 
   return (
     <div className="bg-[#f6fffb] h-screen">
-      <Header 
-        text={isLoggedIn ? "Logout" : "Login"} 
-        onClick={isLoggedIn ? handleLogout : null}
-      />
+      <Header/>
       
       {isLoggedIn && (
         <>

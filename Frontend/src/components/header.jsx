@@ -2,9 +2,11 @@ import login from '../images/login.svg';
 import logo from '../images/Logo.svg';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { isLoggedInAtom } from '../../atoms/loginAtom';
 
 export const Header = ({ text, onClick }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false); // Popup state
   const navigate = useNavigate();
 
