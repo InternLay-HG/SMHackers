@@ -180,6 +180,8 @@ const BookAppointment = () => {
             dateFormat="MMMM d, yyyy"
             className="w-full p-2 border border-gray-300 rounded"
             placeholderText="Select a date"
+            highlightDates={[new Date()]}  // Highlight today's date
+            dayClassName={(date) => date.toDateString() === new Date().toDateString() ? "text-blue-500 font-bold" : ""} // Add custom class to today's date
           />
         </div>
         <div className="w-full sm:w-4/5 p-12">
@@ -238,8 +240,9 @@ const BookAppointment = () => {
                 <div className="flex justify-between mt-4">
                   <Click text={"Cancel"} onClick={closePopup} />
                   <Click
-                    text={loading ? "Confirming..." : "Confirm"}
+                    text={loading ? "Confirming..." : "Confirm Appointment"}
                     onClick={confirmAppointment}
+                    disabled={loading}
                   />
                 </div>
               </div>
