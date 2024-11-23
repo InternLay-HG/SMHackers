@@ -62,6 +62,7 @@ const BookAppointment = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [problemDescription, setProblemDescription] = useState("");
 
   const filteredDoctors =
     filter === "All"
@@ -71,6 +72,7 @@ const BookAppointment = () => {
   const handleAppointment = (doctor) => {
     setSelectedDoctor(doctor);
     setConfirmationMessage("");
+    setProblemDescription(""); // Reset problem description when selecting a new doctor
   };
 
   const sendConfirmationEmail = (doctor) => {
@@ -79,6 +81,7 @@ const BookAppointment = () => {
       user_email: userEmail,
       doctor_name: doctor.name,
       appointment_date: selectedDate?.toDateString(),
+      problem_description: problemDescription,
     };
 
     setLoading(true);
@@ -108,7 +111,11 @@ const BookAppointment = () => {
   const confirmAppointment = () => {
     if (!selectedDate || selectedDate < new Date()) {
       alert("Please select a valid appointment date from the date picker.");
-      closePopup(); // Close the popup after the alert
+      return;
+    }
+
+    if (!problemDescription.trim() || problemDescription.split(" ").length > 30) {
+      alert("Please describe your problem in fewer than 30 words.");
       return;
     }
 
@@ -148,13 +155,12 @@ const BookAppointment = () => {
 
   return (
     <>
-      <Header text={"Login"}></Header>
-      <div style={{backgroundColor:"#F6FFFB"}}
-        className="flex flex-col sm:flex-row min-h-screen bg-gray-100"
-      >
-        <div style={{backgroundColor:"#F6FFFB"}} className="w-full sm:w-1/5 bg-white shadow-lg p-6 mb-6 sm:mb-0">
+      <Header text={"Login"} />
+      <div style={{ backgroundColor: "#F6FFFB" }} className="flex flex-col sm:flex-row min-h-screen bg-gray-100">
+        <div style={{ backgroundColor: "#F6FFFB" }} className="w-full sm:w-1/5 bg-white shadow-lg p-6 mb-6 sm:mb-0">
           <h3 className="text-xl font-bold mb-4 mt-20">Filter by Specialty</h3>
-          <select style={{backgroundColor:"#F6FFFB"}}
+          <select
+            style={{ backgroundColor: "#F6FFFB" }}
             onChange={(e) => setFilter(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded mb-6"
           >
@@ -183,9 +189,9 @@ const BookAppointment = () => {
             </div>
           )}
           <h2 className="text-2xl font-bold mb-6 mt-9">Available Doctors</h2>
-          <div style={{backgroundColor:"#F6FFFB"}} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div style={{ backgroundColor: "#F6FFFB" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filteredDoctors.map((doctor) => (
-              <div style={{backgroundColor:"#F6FFFB"}}
+              <div
                 key={doctor.id}
                 className="bg-white p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:items-start mt-4"
               >
@@ -196,10 +202,7 @@ const BookAppointment = () => {
                     {doctor.experience} years of experience
                   </p>
                   <div className="mb-4">{renderStars(doctor.rating)}</div>
-                  <Click
-                    text={"Book Appointment"}
-                    onClick={() => handleAppointment(doctor)}
-                  />
+                  <Click text={"Book Appointment"} onClick={() => handleAppointment(doctor)} />
                 </div>
                 <div className="w-20 h-20 bg-gray-300 rounded-full overflow-hidden mb-4 sm:mb-0">
                   <img
@@ -219,6 +222,19 @@ const BookAppointment = () => {
                   Are you sure you want to book an appointment with{" "}
                   {selectedDoctor.name} on {selectedDate?.toDateString()}?
                 </p>
+                <div className="mt-4">
+                  <label htmlFor="problemDescription" className="block font-medium mb-2">
+                    Describe Your Problem (required, less than 30 words)
+                  </label>
+                  <textarea
+                    id="problemDescription"
+                    value={problemDescription}
+                    onChange={(e) => setProblemDescription(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded"
+                    placeholder="Describe your problem..."
+                    rows={4}
+                  />
+                </div>
                 <div className="flex justify-between mt-4">
                   <Click text={"Cancel"} onClick={closePopup} />
                   <Click
