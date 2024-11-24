@@ -1,60 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import emailjs from "@emailjs/browser";
 import { Click } from "../components/click";
 import { Header } from "../components/header";
-
-const doctorsData = [
-  {
-    id: 1,
-    name: "Dr. John Doe",
-    specialty: "Cardiologist",
-    available: true,
-    experience: 12,
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: "Dr. Jane Smith",
-    specialty: "Physician",
-    available: false,
-    experience: 8,
-    rating: 4,
-  },
-  {
-    id: 3,
-    name: "Dr. Emily Carter",
-    specialty: "Neurologist",
-    available: true,
-    experience: 15,
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: "Dr. Robert Brown",
-    specialty: "Infectious Disease Specialist",
-    available: true,
-    experience: 10,
-    rating: 3.8,
-  },
-  {
-    id: 5,
-    name: "Dr. Alex Moore",
-    specialty: "Physician",
-    available: true,
-    experience: 10,
-    rating: 4,
-  },
-  {
-    id: 6,
-    name: "Dr. Lisa Green",
-    specialty: "Cardiologist",
-    available: false,
-    experience: 7,
-    rating: 4.2,
-  },
-];
+import axios from "axios";
+// const doctorsData = [
+//   {
+//     id: 1,
+//     name: "Dr. John Doe",
+//     specialty: "Cardiologist",
+//     available: true,
+//     experience: 12,
+//     rating: 4.5,
+//   },
+//   {
+//     id: 2,
+//     name: "Dr. Jane Smith",
+//     specialty: "Physician",
+//     available: false,
+//     experience: 8,
+//     rating: 4,
+//   },
+//   {
+//     id: 3,
+//     name: "Dr. Emily Carter",
+//     specialty: "Neurologist",
+//     available: true,
+//     experience: 15,
+//     rating: 5,
+//   },
+//   {
+//     id: 4,
+//     name: "Dr. Robert Brown",
+//     specialty: "Infectious Disease Specialist",
+//     available: true,
+//     experience: 10,
+//     rating: 3.8,
+//   },
+//   {
+//     id: 5,
+//     name: "Dr. Alex Moore",
+//     specialty: "Physician",
+//     available: true,
+//     experience: 10,
+//     rating: 4,
+//   },
+//   {
+//     id: 6,
+//     name: "Dr. Lisa Green",
+//     specialty: "Cardiologist",
+//     available: false,
+//     experience: 7,
+//     rating: 4.2,
+//   },
+// ];
 
 const BookAppointment = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -63,11 +63,23 @@ const BookAppointment = () => {
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [problemDescription, setProblemDescription] = useState("");
-
-  const filteredDoctors =
-    filter === "All"
-      ? doctorsData
-      : doctorsData.filter((doc) => doc.specialty === filter);
+  const [doctorsData,setDoctorData]=useState([]);
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/v1/patient/doctors');
+        setDoctorData(response.data.doctors);
+      } catch (err) {
+        console.error(err.response?.data?.message || err.message);
+      }
+    };
+  
+    fetchDoctors();
+  }, []);
+  // const filteredDoctors =
+  //   filter === "All"
+  //     ? doctorsData
+  //     : doctorsData.filter((doc) => doc.specialty === filter);
 
   const handleAppointment = (doctor) => {
     setSelectedDoctor(doctor);
@@ -108,7 +120,7 @@ const BookAppointment = () => {
       );
   };
 
-  const confirmAppointment = () => {
+  const confirmAppointment = async () => {
     if (!selectedDate || selectedDate < new Date()) {
       alert("Please select a valid appointment date from the date picker.");
       return;
@@ -118,9 +130,8 @@ const BookAppointment = () => {
       alert("Please describe your problem in fewer than 30 words.");
       return;
     }
-
     setConfirmationMessage(
-      `Appointment confirmed with ${selectedDoctor.name} on ${selectedDate.toDateString()}.`
+      `Appointment confirmed with ${selectedDoctor.doctorName} on ${selectedDate.toDateString()}.`
     );
     sendConfirmationEmail(selectedDoctor);
     setSelectedDoctor(null);
@@ -192,13 +203,13 @@ const BookAppointment = () => {
           )}
           <h2 className="text-2xl font-bold mb-6 mt-9">Available Doctors</h2>
           <div style={{ backgroundColor: "#F6FFFB" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {filteredDoctors.map((doctor) => (
+            {doctorsData.map((doctor) => (
               <div
-                key={doctor.id}
+                key={null}
                 className="bg-white p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:items-start mt-4"
               >
                 <div className="flex flex-col sm:w-3/5 mr-4 mb-4 sm:mb-0">
-                  <h3 className="text-lg font-bold">{doctor.name}</h3>
+                  <h3 className="text-lg font-bold">{doctor.doctorName}</h3>
                   <p className="text-gray-600 mb-2">{doctor.specialty}</p>
                   <p className="text-gray-500 text-sm mb-2">
                     {doctor.experience} years of experience

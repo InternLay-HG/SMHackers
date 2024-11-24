@@ -30,6 +30,19 @@ router.get('/prescription', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+router.get('/doctors',async (req,res)=>{
+    try{
+      const doctors=await User.find({role:'doctor'});
+      const formattedDoctors=doctors.map((doctor)=>({
+        doctorName:`${doctor.firstName} ${doctor.lastName}`,
+        id: doctor._id
+      }));
+      res.json({doctors:formattedDoctors});
+    }
+    catch(err){
+      res.json(err);
+    }
+})
 router.post('/confirmAppointments', async (req,res)=>{
       
 });
