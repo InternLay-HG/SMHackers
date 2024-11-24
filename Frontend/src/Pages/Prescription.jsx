@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { Header } from "../components/header";
+import { Button } from "../components/button";
 import searchicon from "../images/searchicon.png";
 import medications from "../images/Medications.png";
-import { Button } from "../components/button";
 import { Cardmed } from "../components/Cardmed";
+import { Inputfield } from "../components/inputfield";
+import Delete from "../images/Delete.svg";
+import Add from "../images/Add.svg";
+import axios from "axios";
+import { SearchBar } from "../components/searchbar";
 
 export const Prescription = () => {
   const [Prescriptions, setPrescription] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
     const patientId = localStorage.getItem("userid");
@@ -20,6 +23,7 @@ export const Prescription = () => {
             params: { patientId },
           }
         );
+        console.log(response.data);
         setPrescription(response.data.prescriptions);
       } catch (error) {
         console.error("Error fetching prescriptions:", error);
@@ -28,29 +32,15 @@ export const Prescription = () => {
     fetchData();
   }, []);
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/patient/details",
-        { params: { query: searchQuery } }
-      );
-      setUserDetails(response.data); // Assuming the API response includes { name, address, age, gender }
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-      setUserDetails(null); // Reset in case of error
-    }
-  };
-
   return (
     <>
       <div className="bg-[#f6fffb] h-screen">
-        {/* Search Bar */}
         <div
-          className="flex justify-center items-center p-2 bg-search bg-back-green h-32 md:h-44 relative shadow-lg"
+          className={`flex justify-center items-center p-2 bg-search bg-back-green h-32 md:h-44 relative shadow-lg `}
         >
-          <div className="w-full flex justify-center items-center">
-            <div className="flex items-center shrink justify-center w-1/2 h-12 md:h-16 rounded-[20px] px-4 bg-searchbar-background-green">
-              <button type="button" onClick={handleSearch}>
+          <div className=" w-full flex justify-center items-center">
+            <div className="flex items-center shrink justify-center  w-1/2 h-12 md:h-16 rounded-[20px] px-4 bg-searchbar-background-green">
+              <button type="submit">
                 <img
                   src={searchicon}
                   alt="Search Icon"
@@ -61,31 +51,16 @@ export const Prescription = () => {
                 className="bg-white/[0] w-full h-full outline-none p-4"
                 type="text"
                 placeholder="Search Prescription.."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
         </div>
-
-        {/* User Details Section */}
-        {userDetails && (
-          <div className="bg-white p-4 m-4 rounded-lg shadow-md">
-            <h2 className="text-lg font-bold text-[#00693B]">User Details</h2>
-            <p><strong>Name:</strong> {userDetails.name}</p>
-            <p><strong>Address:</strong> {userDetails.address}</p>
-            <p><strong>Age:</strong> {userDetails.age}</p>
-            <p><strong>Gender:</strong> {userDetails.gender}</p>
-          </div>
-        )}
-
-        {/* Rest of the Page */}
         <div className="bg-[#FFF4FA] flex align-center">
           <div className="flex items-center p-1 md:p-1.5 lg:p-2">
-            <div className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:w-12 lg:h-12 p-2">
+            <div className=" h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:w-12 lg:h-12  p-2  ">
               <img src={medications} alt="Image" />
             </div>
-            <div className="text-[#00693B] text-sm md:text-base lg:text-lg font-jaldi font-semibold p-2 lg:p-4">
+            <div className="text-[#00693B] text-sm md:text-base lg:text-lg font-jaldi font-semibold  p-2 lg:p-4">
               Medication
             </div>
           </div>
@@ -116,11 +91,11 @@ export const Prescription = () => {
                   className="rounded-lg border-[#00693B] shrink-0 mx-4 md:mx-0"
                 >
                   <div className="bg-[#D1E7E0] px-2 py-2 rounded-t-xl flex justify-center gap-2 md:gap-4 items-center">
-                    <div className="text-[#14AE5C] font-jaldi font-semibold md:font-bold flex items-center">
+                    <div className="text-[#14AE5C] font-jaldi font-semibold md:font-bold flex items-center ">
                       {prescription.doctorName}
                     </div>
                   </div>
-                  <div className="p-3 md:p-5 text-[#92C1B6] sm:text-base font-inter text-sm bg-white overflow-y-scroll no-scrollbar rounded-b-xl">
+                  <div className=" p-3 md:p-5 text-[#92C1B6] sm:text-base font-inter text-sm bg-white overflow-y-scroll no-scrollbar  rounded-b-xl">
                     <p className="font-semibold inline">Specialty:</p>
                     <p className="inline"> {prescription.specialty}</p>
                     <h4 className="font-bold">Medicines:</h4>
@@ -140,4 +115,121 @@ export const Prescription = () => {
       </div>
     </>
   );
+};
+export const PrescriptionForm = () => {
+  const [medicineFields, setMedicineFields] = useState([
+    { name: "", dosage: "" },
+  ]);
+
+  const addMedicineField = () => {
+    setMedicineFields([...medicineFields, { name: "", dosage: "" }]);
+  };
+
+  const removeMedicineField = (index) => {
+    const newFields = medicineFields.filter((_, i) => i !== index);
+    setMedicineFields(newFields);
+  };
+
+  const handleFieldChange = (index, field, value) => {
+    const newFields = [...medicineFields];
+    newFields[index][field] = value;
+    setMedicineFields(newFields);
+  };
+  return (
+    <>
+      <Header text={"Login"} />
+      <SearchBar text={"Search Patient"} />
+      <div class="w-full -mt-56 h-screen bg-[#f6fffb] flex flex-col items-center justify-center">
+        <h1 class="text-3xl font-semibold mb-6 text-[#00693B] font-inter text-center">
+          Doctor's Prescription
+        </h1>
+        <form
+          className="p-6 m-6 shadow-md "
+          action="/signup"
+          method="POST"
+          class="space-y-4"
+        >
+          {medicineFields.map((medicine, index) => (
+            <div
+              key={index}
+              className="flex flex-col justify-around items-center gap-2"
+            >
+              <section className="flex justify-around gap-1 items-end">
+                <Inputfield
+                  onChange={(e) =>
+                    handleFieldChange(index, "name", e.target.value)
+                  }
+                  text={`Medicine ${index + 1}`}
+                  type={"text"}
+                  id={"medicine-name"}
+                />
+                <Inputfield
+                  onChange={(e) =>
+                    handleFieldChange(index, "dosage", e.target.value)
+                  }
+                  text={`Medicine ${index + 1} Dosage`}
+                  type={"text"}
+                  id={"doses"}
+                />
+                <Inputfield
+                  onChange={(e) =>
+                    handleFieldChange(index, "Medicine Frequency", e.target.value)
+                  }
+                  text={`Medicine ${index + 1} Frequency`}
+                  type={"number"}
+                  id={"frequency"}
+                />
+                <button
+                  onClick={() => removeMedicineField(index)}
+                  type="submit"
+                  className="flex h-10 sm:px-3 justify-center px-2 md:py-1 items-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 bg-white rounded-sm md:rounded-md lg:rounded-lg hover:bg-green-100 text-medic-green shadow-sm text-xs sm:text-sm lg:text-base"
+                >
+                  <img
+                    src={Delete}
+                    alt="User Icon"
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5"
+                  />
+                </button>
+              </section>
+              <button
+                onClick={() => addMedicineField()}
+                className="flex h-10 w-2/5 sm:px-3 justify-center px-2 md:py-1 items-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 bg-white rounded-sm md:rounded-md lg:rounded-lg hover:bg-green-100 text-medic-green shadow-sm text-xs sm:text-sm lg:text-base"
+              >
+                Add Medicine
+                <img
+                  src={Add}
+                  alt="User Icon"
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5"
+                />
+              </button>
+            </div>
+          ))}
+
+          <div>
+            <button
+              type="submit"
+              className="w-full bg-white p-2 rounded-md hover:bg-gray-8 hover:bg-green-100 text-medic-green shadow-md focus:shadow-lg focus:ring-offset-2 transition-colors duration-300"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+const PrescriptionUploadFunction = async (doctorid, patientid, medicines) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/doctor/prescription",
+      {
+        doctor: doctorid,
+        patiend: patientid,
+        medicines: medicines,
+      }
+    );
+  } catch (err) {
+    console.log("Error Posting the data");
+  }
 };
