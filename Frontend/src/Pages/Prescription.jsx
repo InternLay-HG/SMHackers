@@ -139,7 +139,7 @@ export const PrescriptionForm = () => {
     <>
       <Header text={"Login"} />
       <SearchBar text={"Search Patient"} />
-      <div class="w-full h-screen bg-[#f6fffb] flex flex-col items-center justify-center">
+      <div class="w-full -mt-56 h-screen bg-[#f6fffb] flex flex-col items-center justify-center">
         <h1 class="text-3xl font-semibold mb-6 text-[#00693B] font-inter text-center">
           Doctor's Prescription
         </h1>
@@ -149,7 +149,6 @@ export const PrescriptionForm = () => {
           method="POST"
           class="space-y-4"
         >
-          <Inputfield text={"Name"} type={"text"} id={"name"} />
           {medicineFields.map((medicine, index) => (
             <div
               key={index}
