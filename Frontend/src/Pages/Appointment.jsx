@@ -30,6 +30,20 @@ const Appointment = () => {
         return [];
       }
     };
+    const handleButtonClick = (type) => {
+      setActiveButton(type);
+  
+      
+      if (type === "current") {
+        setAppointmentsData(DocAppoint); 
+      } else if (type === "previous") {
+        setAppointmentsData([]); 
+      } else if (type === "upcoming") {
+        setAppointmentsData([]); 
+      } else if (type === "scheduled") {
+        setAppointmentsData([]); 
+      }
+    };
     
   })
   return (
