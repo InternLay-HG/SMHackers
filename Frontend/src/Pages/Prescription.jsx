@@ -35,6 +35,7 @@ export const Prescription = () => {
   return (
     <>
       <div className="bg-[#f6fffb] h-screen">
+        <Header/>
         <div
           className={`flex justify-center items-center p-2 bg-search bg-back-green h-32 md:h-44 relative shadow-lg `}
         >
