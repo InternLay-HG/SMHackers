@@ -1,7 +1,7 @@
 const express = require('express');
 const  Prescription = require("../db/prescription");
 const { User } = require("../db/db"); 
-const {Appointment} =require('../db/appointments')
+const Appointment =require('../db/appointments')
 const router = express.Router();
 
 router.get('/prescription', async (req, res) => {
@@ -46,8 +46,8 @@ router.get('/doctors',async (req,res)=>{
 router.post('/bookappointments', async (req,res)=>{
       try{
         const { patientId, doctorId, appointmentDate, appointmentTime } = req.body;
-         const patient=User.findById(patientId);
-         const doctor=User.findById(doctorId);
+         const patient=await User.findById(patientId);
+         const doctor=await User.findById(doctorId);
          if (!patient || !doctor) {
           return res.status(404).json({ message: 'Patient or Doctor not found.' });
         }
@@ -74,7 +74,7 @@ router.post('/bookappointments', async (req,res)=>{
 router.get('/activeappointments',async (req,res)=>{
     try{
       const {patientId}=req.body;
-        const myAppointments=await Appointment.find(patientId);
+        const myAppointments=await Appointment.find({ patient: patientId });
         res.json({
           message : 'Appointments fetched successfully',
           appointments: myAppointments

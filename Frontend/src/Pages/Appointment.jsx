@@ -12,21 +12,30 @@ import { Link } from "react-router-dom";
 
 // Adding the CSS styles directly in the component
 const Appointment = () => {
-
-  const DocAppoint=[   {
-    doctorName: "Dr. Smith",
-    specialty: "Cardiologist",
-    date:"2 tarikh",
-    time:"3 baje",
-    reason:"pet kharab"
-  },
-  {
-    doctorName: "Dr. Brown",
-    specialty: "Dermatologist",
-    date:"2 tarikh",
-    time:"3 baje",
-    reason:"Follow-up appointment for hypertension management and to review recent blood test results"
-  }]
+  const [DocAppoint,setDocAppoint]=useState([]);
+  useEffect(()=>{
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get(""); 
+        const appointments = response.data;
+    
+        const formattedAppointments = appointments.map((appointment) => ({
+          doctorName: `Dr. ${appointment.doctor.firstName} ${appointment.doctor.lastName}`,
+          specialty: null,
+          date: new Date(appointment.appointmentDate).toLocaleDateString("en-IN"), // e.g., "2 tarikh"
+          time: `${new Date(appointment.appointmentDate).getHours()}`, // e.g., "3 baje"
+          reason: appointment.reason,
+        }));
+    
+        console.log(formattedAppointments); // Logs the data in `DocAppoint` format
+        return formattedAppointments;
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+        return [];
+      }
+    };
+    
+  })
   return (
     <div>
       <Header text={"Login"}></Header>
