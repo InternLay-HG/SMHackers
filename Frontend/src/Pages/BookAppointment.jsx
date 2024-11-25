@@ -125,7 +125,6 @@ const BookAppointment = () => {
       alert("Please select a valid appointment date from the date picker.");
       return;
     }
-
     if (!problemDescription.trim() || problemDescription.split(" ").length > 30) {
       alert("Please describe your problem in fewer than 30 words.");
       return;
