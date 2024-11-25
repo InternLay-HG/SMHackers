@@ -1,37 +1,6 @@
-import React from "react";
-import searchicon from '../images/searchicon.png'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUserDoctor,
-  faCalendarDays,
-  faBell,
-} from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../components/button";
-import { Header } from "../components/header.jsx"
-import Appointments from '../images/Appointments.png';
-import { CardAppoint } from "../components/CardAppoint.jsx";
-import { Link } from "react-router-dom";
+import React from 'react'
 
-
-
-
-// Adding the CSS styles directly in the component
-const DoctorsAppointment = () => {
-
-  const DocAppoint=[   {
-    doctorName: "Dr. Smith",
-    specialty: "Cardiologist",
-    date:"2 tarikh",
-    time:"3 baje",
-    reason:"pet kharab"
-  },
-  {
-    doctorName: "Dr. Brown",
-    specialty: "Dermatologist",
-    date:"2 tarikh",
-    time:"3 baje",
-    reason:"Follow-up appointment for hypertension management and to review recent blood test results"
-  }]
+export const DoctorAppointment = () => {
   return (
     <div>
       <Header text={"Login"}></Header>
@@ -64,7 +33,7 @@ const DoctorsAppointment = () => {
         <Button color={"bg-[#FFF7DD]"} text={"Appointments"} subtext1={"Previous"}></Button>
         <Button color={"bg-[#FFF7DD]"} text={"Appointments"} subtext1={"Upcoming "}></Button>
         <Button color={"bg-[#FFF7DD]"} text={"Scheduled this Week"} ></Button>
-        <Link to='/appointments/book'><Button color={"bg-[#FFF7DD]"} text={"Book Appointment"} ></Button></Link>
+        
           
       </div>
       {DocAppoint.length === 0 ? (
@@ -75,7 +44,5 @@ const DoctorsAppointment = () => {
 
       
     </div>
-  );
-};
-
-export default DoctorsAppointment;
+  )
+}
