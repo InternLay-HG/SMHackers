@@ -9,6 +9,7 @@ const AppointmentSchema = new mongoose.Schema({
   patientName: { type: String, required: true }, // Adding a direct field for patient name
   appointmentDate: { type: Date, required: true },
   appointmentTime: { type: String, required: true }, // Storing time separately
+  reason:{type: String , required:true}
 });
 
 const Appointment = mongoose.model('Appointment', AppointmentSchema);

@@ -16,9 +16,8 @@ const Appointment = () => {
   useEffect(()=>{
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get(""); 
-        const appointments = response.data;
-    
+        const response = await axios.get("http://localhost:3000/api/v1/doctor/activeappointments"); 
+        const appointments = response.data.appointments;
         const formattedAppointments = appointments.map((appointment) => ({
           doctorName: `Dr. ${appointment.doctor.firstName} ${appointment.doctor.lastName}`,
           specialty: null,
@@ -28,14 +27,15 @@ const Appointment = () => {
         }));
     
         console.log(formattedAppointments); // Logs the data in `DocAppoint` format
+        setDocAppoint(formattedAppointments);
         return formattedAppointments;
       } catch (error) {
         console.error("Error fetching appointments:", error);
         return [];
       }
     };
-    
-  })
+    fetchAppointments();
+  },[])
   return (
     <div>
       <Header text={"Login"}></Header>
