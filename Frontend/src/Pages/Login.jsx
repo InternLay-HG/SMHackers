@@ -34,21 +34,6 @@ export const Login = () => {
       console.error("Error during Google login:", error);
     }
   };
-
-
-  //
-  // const handleGoogleLogin = (event) => {
-  //   event.preventDefault();
-  //   signInWithGoogle()
-  //   .then(() => {
-  //     console.log("Login Successful");
-  //     navigate("/signupgoogle");
-  //       })
-  //       .catch((error) => {
-  //         console.error("Login error:", error);
-  //       });
-  //     };
-  //
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
