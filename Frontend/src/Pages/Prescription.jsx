@@ -97,13 +97,14 @@ export const Prescription = () => {
                     </div>
                   </div>
                   <div className=" p-3 md:p-5 text-[#92C1B6] sm:text-base font-inter text-sm bg-white overflow-y-scroll no-scrollbar  rounded-b-xl">
-                    <p className="font-semibold inline">Specialty:</p>
+                    {/* <p className="font-semibold inline">Specialty:</p> */}
                     <p className="inline"> {prescription.specialty}</p>
                     <h4 className="font-bold">Medicines:</h4>
-                    <ul>
+                    <ul className="block">
                       {prescription.medicines.map((medicine, i) => (
                         <li key={i}>
-                          {medicine.name} - Take at: {medicine.timing}
+                          {medicine.name}<br/> <span className="font-semibold inline">Frequency :</span> {medicine.frequency}<br/>
+                          <span className="font-semibold inline">Dosage : </span>{medicine.dosage}
                         </li>
                       ))}
                     </ul>
@@ -121,9 +122,9 @@ export const PrescriptionForm = () => {
   const [medicineFields, setMedicineFields] = useState([
     { name: "", dosage: "",frequency:"" },
   ]);
-
+  const [patient,setPatientId]=useState("");
   const addMedicineField = () => {
-    setMedicineFields([...medicineFields, { name: "", dosage: "",frequency:"" }]);
+    setMedicineFields([...medicineFields, { patient:"",name: "", dosage: "",frequency:"" }]);
   };
 
   const removeMedicineField = (index) => {
@@ -139,8 +140,7 @@ export const PrescriptionForm = () => {
   return (
     <>
       <Header text={"Login"} />
-      <SearchBar text={"Search Patient"} />
-      <div class="w-full -mt-56 h-screen bg-[#f6fffb] flex flex-col items-center justify-center">
+      <div class="w-full -mt-50 h-screen bg-[#f6fffb] flex flex-col items-center justify-center">
         <h1 class="text-3xl font-semibold mb-6 text-[#00693B] font-inter text-center">
           Doctor's Prescription
         </h1>
@@ -162,7 +162,13 @@ export const PrescriptionForm = () => {
             }
           }
           }
-        >
+        ><Inputfield 
+        onChange={(e)=>
+        {
+          setPatientId(e.target.value);
+        }
+        } text={"patiendId"} type={"text"} id={"patientId"}>
+        </Inputfield>
           {medicineFields.map((medicine, index) => (
             <div
               key={index}
