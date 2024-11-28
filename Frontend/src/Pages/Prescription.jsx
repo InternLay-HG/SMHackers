@@ -119,11 +119,11 @@ export const Prescription = () => {
 };
 export const PrescriptionForm = () => {
   const [medicineFields, setMedicineFields] = useState([
-    { name: "", dosage: "" },
+    { name: "", dosage: "",frequency:"" },
   ]);
 
   const addMedicineField = () => {
-    setMedicineFields([...medicineFields, { name: "", dosage: "" }]);
+    setMedicineFields([...medicineFields, { name: "", dosage: "",frequency:"" }]);
   };
 
   const removeMedicineField = (index) => {
@@ -146,9 +146,22 @@ export const PrescriptionForm = () => {
         </h1>
         <form
           className="p-6 m-6 shadow-md "
-          action="/signup"
-          method="POST"
           class="space-y-4"
+          onSubmit={async ()=>{
+            try {
+              const response = await axios.post('/prescription', medicineFields);
+              console.log('Prescription created successfully:', response.data);
+            } catch (error) {
+              if (error.response) {
+                console.error('Error response data:', error.response.data);
+              } else if (error.request) {
+                console.error('Error request:', error.request);
+              } else {
+                console.error('Error message:', error.message);
+              }
+            }
+          }
+          }
         >
           {medicineFields.map((medicine, index) => (
             <div
@@ -218,19 +231,4 @@ export const PrescriptionForm = () => {
       </div>
     </>
   );
-};
-
-const PrescriptionUploadFunction = async (doctorid, patientid, medicines) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/doctor/prescription",
-      {
-        doctor: doctorid,
-        patiend: patientid,
-        medicines: medicines,
-      }
-    );
-  } catch (err) {
-    console.log("Error Posting the data");
-  }
-};
+}
