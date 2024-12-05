@@ -1,60 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import emailjs from "@emailjs/browser";
 import { Click } from "../components/click";
 import { Header } from "../components/header";
 import axios from "axios";
-// const doctorsData = [
-//   {
-//     id: 1,
-//     name: "Dr. John Doe",
-//     specialty: "Cardiologist",
-//     available: true,
-//     experience: 12,
-//     rating: 4.5,
-//   },
-//   {
-//     id: 2,
-//     name: "Dr. Jane Smith",
-//     specialty: "Physician",
-//     available: false,
-//     experience: 8,
-//     rating: 4,
-//   },
-//   {
-//     id: 3,
-//     name: "Dr. Emily Carter",
-//     specialty: "Neurologist",
-//     available: true,
-//     experience: 15,
-//     rating: 5,
-//   },
-//   {
-//     id: 4,
-//     name: "Dr. Robert Brown",
-//     specialty: "Infectious Disease Specialist",
-//     available: true,
-//     experience: 10,
-//     rating: 3.8,
-//   },
-//   {
-//     id: 5,
-//     name: "Dr. Alex Moore",
-//     specialty: "Physician",
-//     available: true,
-//     experience: 10,
-//     rating: 4,
-//   },
-//   {
-//     id: 6,
-//     name: "Dr. Lisa Green",
-//     specialty: "Cardiologist",
-//     available: false,
-//     experience: 7,
-//     rating: 4.2,
-//   },
-// ];
 
 const BookAppointment = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -63,7 +12,9 @@ const BookAppointment = () => {
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [problemDescription, setProblemDescription] = useState("");
-  const [doctorsData,setDoctorData]=useState([]);
+  const [doctorsData, setDoctorData] = useState([]);
+  const [userId, setUserId] = useState(1);  // Assuming userId is 1 for now. This could be passed as a prop or fetched from context.
+
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -76,48 +27,11 @@ const BookAppointment = () => {
   
     fetchDoctors();
   }, []);
-  // const filteredDoctors =
-  //   filter === "All"
-  //     ? doctorsData
-  //     : doctorsData.filter((doc) => doc.specialty === filter);
 
   const handleAppointment = (doctor) => {
     setSelectedDoctor(doctor);
     setConfirmationMessage("");
     setProblemDescription(""); // Reset problem description when selecting a new doctor
-  };
-
-  const sendConfirmationEmail = (doctor) => {
-    const userEmail = "user_email@example.com";
-    const templateParams = {
-      user_email: userEmail,
-      doctor_name: doctor.name,
-      appointment_date: selectedDate?.toDateString(),
-      problem_description: problemDescription,
-    };
-
-    setLoading(true);
-    emailjs
-      .send(
-        "your_service_id",
-        "your_template_id",
-        templateParams,
-        "your_public_key"
-      )
-      .then(
-        (response) => {
-          console.log(
-            "Email sent successfully!",
-            response.status,
-            response.text
-          );
-          setLoading(false);
-        },
-        (error) => {
-          console.error("Failed to send email:", error);
-          setLoading(false);
-        }
-      );
   };
 
   const confirmAppointment = async () => {
@@ -129,11 +43,28 @@ const BookAppointment = () => {
       alert("Please describe your problem in fewer than 30 words.");
       return;
     }
-    setConfirmationMessage(
-      `Appointment confirmed with ${selectedDoctor.doctorName} on ${selectedDate.toDateString()}.`
-    );
-    sendConfirmationEmail(selectedDoctor);
-    setSelectedDoctor(null);
+
+    const appointmentData = {
+      userId: userId,  // You can fetch this from your authentication context or state
+      doctorId: selectedDoctor.id,
+      doctorName: selectedDoctor.name,
+      appointmentDate: selectedDate,
+      problemDescription: problemDescription,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/appointments', appointmentData);
+      if (response.status === 200) {
+        setConfirmationMessage(
+          `Appointment confirmed with ${selectedDoctor.name} on ${selectedDate.toDateString()}.`
+        );
+      }
+    } catch (err) {
+      console.error("Error while booking appointment:", err);
+      alert("Failed to confirm appointment. Please try again.");
+    }
+    
+    setSelectedDoctor(null);  // Reset doctor selection after confirming appointment
   };
 
   const closePopup = () => {
@@ -204,11 +135,11 @@ const BookAppointment = () => {
           <div style={{ backgroundColor: "#F6FFFB" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {doctorsData.map((doctor) => (
               <div
-                key={null}
+                key={doctor.id}
                 className="bg-white p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:items-start mt-4"
               >
                 <div className="flex flex-col sm:w-3/5 mr-4 mb-4 sm:mb-0">
-                  <h3 className="text-lg font-bold">{doctor.doctorName}</h3>
+                  <h3 className="text-lg font-bold">{doctor.name}</h3>
                   <p className="text-gray-600 mb-2">{doctor.specialty}</p>
                   <p className="text-gray-500 text-sm mb-2">
                     {doctor.experience} years of experience
