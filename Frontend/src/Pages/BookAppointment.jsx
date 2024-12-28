@@ -13,7 +13,6 @@ const BookAppointment = () => {
   const [loading, setLoading] = useState(false);
   const [problemDescription, setProblemDescription] = useState("");
   const [doctorsData, setDoctorData] = useState([]);
-  const [userId, setUserId] = useState(1);  // Assuming userId is 1 for now. This could be passed as a prop or fetched from context.
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -45,7 +44,6 @@ const BookAppointment = () => {
     }
 
     const appointmentData = {
-      userId: userId,  // You can fetch this from your authentication context or state
       doctorId: selectedDoctor.id,
       doctorName: selectedDoctor.name,
       appointmentDate: selectedDate,
