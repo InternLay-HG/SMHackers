@@ -4,7 +4,7 @@ const zod = require('zod');
 const multer = require('multer');
 const { User } = require('../db/db.js');
 const Prescription = require('../db/prescription.js');
-
+const Appointment=require('../db/appointments.js')
 
 const prescriptionSchema = zod.object({
   doctor: zod.string().nonempty('Doctor ID is required'),
@@ -89,5 +89,19 @@ router.post('/labreport', upload.single('pdfFile'), async (req, res) => {
     res.status(500).json({ error: 'An error occurred while uploading the PDF' });
   }
 });
+router.get('/activeappointments',async (req,res)=>{
+  try{
+    const {doctorId}=req.body;
+      const myAppointments=await Appointment.find({ doctor: doctorId });
+      res.json({
+        message : 'Appointments fetched successfully',
+        appointments: myAppointments
+      })
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).json({message:'Server error', error: error.message});
+  }
+})
 
 module.exports = router;

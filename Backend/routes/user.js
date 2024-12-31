@@ -70,6 +70,7 @@ router.post("/signup", async (req, res) => {
       res.json({
         message: "User created successfully",
         userid: user._id,
+        role: user.role,
         token: token
       });
     } catch (err) {
@@ -99,6 +100,7 @@ router.post("/signup", async (req, res) => {
           res.json({
             token: token,
             userid: user._id,
+            role:user.role,
             message: "User signed in successfully"
           });
           return;

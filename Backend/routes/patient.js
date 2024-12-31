@@ -1,7 +1,7 @@
 const express = require('express');
 const  Prescription = require("../db/prescription");
 const { User } = require("../db/db"); 
-
+const Appointment =require('../db/appointments')
 const router = express.Router();
 
 router.get('/prescription', async (req, res) => {
@@ -30,5 +30,60 @@ router.get('/prescription', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+router.get('/doctors',async (req,res)=>{
+    try{
+      const doctors=await User.find({role:'doctor'});
+      const formattedDoctors=doctors.map((doctor)=>({
+        doctorName:`${doctor.firstName} ${doctor.lastName}`,
+        id: doctor._id
+      }));
+      res.json({doctors:formattedDoctors});
+    }
+    catch(err){
+      res.json(err);
+    }
+})
+router.post('/bookappointments', async (req,res)=>{
+      try{
+        const { patientId, doctorId, appointmentDate, appointmentTime } = req.body;
+         const patient=await User.findById(patientId);
+         const doctor=await User.findById(doctorId);
+         if (!patient || !doctor) {
+          return res.status(404).json({ message: 'Patient or Doctor not found.' });
+        }
+        const newAppointment = new Appointment({
+          patient: patientId,
+          doctor: doctorId,
+          patientName: `${patient.firstName} ${patient.lastName}`, // Fetch name from User model
+          appointmentDate: new Date(appointmentDate),
+          appointmentTime,
+        });
+    
+        const savedAppointment = await newAppointment.save();
+        res.status(201).json({
+          message: 'Appointment booked successfully!',
+          appointments: savedAppointment,
+        });
+
+      }
+      catch(error){
+        console.error(error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+      }
+});
+router.get('/activeappointments',async (req,res)=>{
+    try{
+      const {patientId}=req.body;
+        const myAppointments=await Appointment.find({ patient: patientId });
+        res.json({
+          message : 'Appointments fetched successfully',
+          appointments: myAppointments
+        })
+    }
+    catch(error){
+      console.log(error);
+      res.status(500).json({message:'Server error', error: error.message});
+    }
+})
 
 module.exports = router;

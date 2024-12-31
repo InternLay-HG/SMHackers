@@ -1,5 +1,8 @@
 import React from 'react'
 import doctorimg from '../images/doctorimg.jpg'
+import {Click} from './click'
+import schedule from '../images/Schedule.svg'
+import reminder from '../images/SetRemainder.svg'
 
 export const CardAppoint = ({DocAppoint,doctor={doctorimg}}) => {
   return (
@@ -29,9 +32,13 @@ export const CardAppoint = ({DocAppoint,doctor={doctorimg}}) => {
             <div className='flex flex-wrap'>
             <p className='font-semibold inline'>Reason to Visit:</p><p className='inline'> {appointment.reason}</p>
             </div>
-            
+            <div className="flex justify-around mt-4 gap-2">
+              <Click text={"Re-Schedule"} image={schedule}/>
+              <Click text={"Set Reminder"} image={reminder}/>
+            </div>
             
             </div>
+            
             
            
           </div>
