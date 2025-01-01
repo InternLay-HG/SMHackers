@@ -1,12 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Inputfield } from "../components/inputfield";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 export const SignupGoogle = () => {
-
   // const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,8 +15,8 @@ export const SignupGoogle = () => {
   const [pincode, setPincode] = useState(0);
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("patient");
-
   const userEmail = localStorage.getItem("userEmail");
+
   const username = userEmail;
   const password = "Google";
   const handlePincodeChange = (e) => {
@@ -30,14 +29,14 @@ export const SignupGoogle = () => {
   const navigate = useNavigate();
 
   return (
-    <div class="flex h-screen">
-      <div class="hidden lg:flex items-center justify-center flex-1 bg-[#00693cac] bg-search bg-opacity-5">
-        <div class="max-w-md text-center">
+    <div className="flex h-screen">
+      <div className="hidden lg:flex items-center justify-center flex-1 bg-[#00693cac] bg-search bg-opacity-5">
+        <div className="max-w-md text-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="524.67004"
             height="531.39694"
-            class="w-full"
+            className="w-full"
             alt="https://undraw.co/illustrations"
             title="https://undraw.co/illustrations"
             viewBox="0 0 524.67004 531.39694"
@@ -263,20 +262,20 @@ export const SignupGoogle = () => {
         </div>
       </div>
 
-      <div class="w-full bg-[#f6fffb] lg:w-1/2 flex items-center justify-center">
-        <div class="max-w-md w-full p-6">
-          <h1 class="text-3xl font-semibold mt-20 mb-6 text-[#00693B] font-inter text-center">
+      <div className="w-full bg-[#f6fffb] lg:w-1/2 flex items-center justify-center">
+        <div className="max-w-md w-full p-6">
+          <h1 className="text-3xl font-semibold mt-20 mb-6 text-[#00693B] font-inter text-center">
             Register
           </h1>
-          <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">
+          <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
             Join to Our Community with all time access and free{" "}
           </h1>
-          <div class="mt-4 flex flex-col lg:flex-row items-center justify-between"></div>
+          <div className="mt-4 flex flex-col lg:flex-row items-center justify-between"></div>
 
-          <form action="/signup" method="POST" class="space-y-4">
-            
-            <p style={{color : "green", fontSize : "110%"}}>User Email : {userEmail}</p>
-
+          <form action="/signup" method="POST" className="space-y-4">
+            <p style={{ color: "green", fontSize: "110%" }}>
+              User Email : {userEmail}
+            </p>
             <section className="flex justify-around gap-1">
               <Inputfield
                 text={"First Name"}
@@ -350,7 +349,7 @@ export const SignupGoogle = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
-           
+
             <div>
               <button
                 onClick={async (e) => {
@@ -371,7 +370,7 @@ export const SignupGoogle = () => {
                   );
                   localStorage.setItem("token", response.data.token);
                   localStorage.setItem("userid", response.data.userid);
-                  localStorage.setItem("role",response.data.role);
+                  localStorage.setItem("role", response.data.role);
                   navigate("/");
                 }}
                 type="submit"
@@ -382,8 +381,13 @@ export const SignupGoogle = () => {
             </div>
           </form>
           <div class="mt-4 text-sm text-gray-600 text-center">
-      <p>Already have an account? <Link to="/login" className="text-[#00693B] hover:underline">Login here</Link></p>
-      </div>
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="text-[#00693B] hover:underline">
+                Login here
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

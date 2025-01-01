@@ -35,6 +35,7 @@ export const Home = () => {
     localStorage.removeItem('token');
     console.log("logout");
     setIsLoggedIn(false);
+    localStorage.clear();
     navigate("/");
   };
 

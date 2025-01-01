@@ -1,6 +1,9 @@
 import React from "react";
 import Doctors from "../images/doctors.svg";
 import google from "../images/google-icon.svg";
+import { Link } from "react-router-dom";
+import { GoogleOAuthLogin } from "../components/Login_Signup_Signout";
+
 
 
 export const Homepage = () => {
@@ -12,7 +15,6 @@ export const Homepage = () => {
           Take your health into your own hands
         </p>
       </div>
-
       
       <div className="relative w-full max-w-4xl flex flex-col items-center">
         
@@ -70,20 +72,12 @@ export const Homepage = () => {
 
       
       <div className=" flex flex-col md:flex-row items-center gap-4">
-        
+        <Link to="/login">
         <button className="px-8 py-3 bg-[#099E6C] text-white font-semibold rounded-lg shadow hover:bg-[#077E56] transition-colors">
           Get Started
         </button>
-
-        
-        <button className="px-8 py-3 bg-white border border-[#4C937E] text-[#4C937E] font-semibold rounded-lg shadow hover:bg-[#F6FFFBC7] transition-colors flex items-center gap-2">
-          <img
-            src={google} 
-            alt="Google"
-            className="w-5 h-5"
-          />
-          Sign up with Google
-        </button>
+        </Link>
+        <GoogleOAuthLogin/>
       </div>
     </div>
   );
