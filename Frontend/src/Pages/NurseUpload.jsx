@@ -7,11 +7,9 @@ export const NurseUpload = () => {
 
     const submitFile = async (e) => {
         e.preventDefault();
-        
         const formData = new FormData();
         formData.append("title", title);
         formData.append("file", file);
-        
         console.log(title,file);
     };
 

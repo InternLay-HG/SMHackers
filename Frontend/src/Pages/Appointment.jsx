@@ -6,6 +6,8 @@ import { Button } from "../components/button.jsx";
 import { Header } from "../components/header.jsx";
 import { CardAppoint } from "../components/CardAppoint.jsx";
 
+
+
 const CombinedAppointments = () => {
   const [role, setRole] = useState(null);
   const [DocAppoint, setDocAppoint] = useState([]);

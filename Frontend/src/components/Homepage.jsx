@@ -1,6 +1,4 @@
-import React from "react";
 import Doctors from "../images/doctors.svg";
-import google from "../images/google-icon.svg";
 import { Link } from "react-router-dom";
 import { GoogleOAuthLogin } from "../components/Login_Signup_Signout";
 

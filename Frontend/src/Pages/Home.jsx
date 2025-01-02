@@ -13,15 +13,14 @@ import Updates from '../images/updates.svg';
 import Chronic from '../images/Chronic.svg';
 import Allergies from '../images/Allergies.svg';
 import { Card } from "../components/card.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import { isLoggedInAtom } from '../../atoms/loginAtom.jsx';
 import {Homepage} from "../components/Homepage.jsx";
 
 export const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
-  const [Role,setRole]=useState('');
-  const navigate = useNavigate();
+  const [Role, setRole] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -31,13 +30,6 @@ export const Home = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    console.log("logout");
-    setIsLoggedIn(false);
-    localStorage.clear();
-    navigate("/");
-  };
 
   return (
     <div className="bg-[#f6fffb] h-screen">

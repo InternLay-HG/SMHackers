@@ -19,6 +19,7 @@ export const Header = ({ text, onClick }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.clear()
     console.log("logout");
     setIsLoggedIn(false);
     setShowLogoutPopup(false); // Close the popup

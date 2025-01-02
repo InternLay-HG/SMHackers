@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Inputfield } from "../components/inputfield";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -380,7 +379,7 @@ export const SignupGoogle = () => {
               </button>
             </div>
           </form>
-          <div class="mt-4 text-sm text-gray-600 text-center">
+          <div className="mt-4 text-sm text-gray-600 text-center">
             <p>
               Already have an account?{" "}
               <Link to="/login" className="text-[#00693B] hover:underline">
