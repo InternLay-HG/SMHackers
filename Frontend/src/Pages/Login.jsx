@@ -269,7 +269,7 @@ export const Login = () => {
           </h1>
 
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
-            <div className="w-full mb-2 lg:mb-0">
+            <div className="w-full flex justify-center mb-2 lg:mb-0">
               <GoogleOAuthLogin />
             </div>
           </div>

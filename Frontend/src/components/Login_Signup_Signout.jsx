@@ -26,7 +26,7 @@ export const GoogleOAuthLogin = () => {
   };
 
   return (
-    <div>
+    <div >
       <GoogleOAuthProvider clientId={clientId}>
         <GoogleLogin onSuccess={onSuccess} onFailure={onFailure} />
       </GoogleOAuthProvider>

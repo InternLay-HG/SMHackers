@@ -278,7 +278,7 @@ export const Signup = () => {
             Join to Our Community with all time access and free{" "}
           </h1>
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
-            <div className="w-full mb-2 lg:mb-0">
+            <div className="w-full flex justify-center mb-2 lg:mb-0">
               <GoogleOAuthLogin />
             </div>
           </div>
@@ -323,6 +323,7 @@ export const Signup = () => {
               />
             </section>
 
+            <section className="flex justify-around gap-1">
             <Inputfield
               text={"State"}
               type={"text"}
@@ -345,6 +346,7 @@ export const Signup = () => {
               id={"pincode"}
               onChange={handlePincodeChange}
             />
+            </section>
 
             <Inputfield
               text={"Address"}

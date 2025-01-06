@@ -12,6 +12,28 @@ import update from "../images/update.svg"
 
 
 function PrevRecords(){
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    condition: "",
+    date: "",
+    description: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitted Data: ", formData);
+    
+    setFormData({ condition: "", date: "", description: "" });
+    setIsModalOpen(false);
+  };
+
+
   const [isDivVisible, setDivVisible] = useState(false);
   const buttonRef = useRef(null);
 
@@ -122,7 +144,70 @@ function PrevRecords(){
         </div>
         <div className="w-full flex justify-center items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 ">
           <Click text={"More"} image={more} />
-          <Click text={"Update Records"} image={update}/>
+          <Click text={"Update Records"} onClick={() => setIsModalOpen(true)} image={update}/>
+          {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+            <h2 className="text-lg text-medic-green font-semibold mb-4">Update Records</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Medical Condition
+                </label>
+                <input
+                  type="text"
+                  name="condition"
+                  value={formData.condition}
+                  onChange={handleInputChange}
+                  className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Date of Diagnosis
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+                  rows="3"
+                  required
+                />
+              </div>
+              <div className="flex justify-end gap-4">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-back-green text-white rounded-lg"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
         </div>
     
     
