@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Click } from "../components/click";
@@ -13,17 +13,22 @@ const BookAppointment = () => {
   const [loading, setLoading] = useState(false);
   const [problemDescription, setProblemDescription] = useState("");
   const [doctorsData, setDoctorData] = useState([]);
+  const [message, setMessage] = useState(null);
+
+  const email = localStorage.get("userEmail");
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/patient/doctors');
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/patient/doctors"
+        );
         setDoctorData(response.data.doctors);
       } catch (err) {
         console.error(err.response?.data?.message || err.message);
       }
     };
-  
+
     fetchDoctors();
   }, []);
 
@@ -38,32 +43,62 @@ const BookAppointment = () => {
       alert("Please select a valid appointment date from the date picker.");
       return;
     }
-    if (!problemDescription.trim() || problemDescription.split(" ").length > 30) {
+    if (
+      !problemDescription.trim() ||
+      problemDescription.split(" ").length > 30
+    ) {
       alert("Please describe your problem in fewer than 30 words.");
       return;
     }
 
     const appointmentData = {
-      doctorId: selectedDoctor.id,
-      doctorName: selectedDoctor.name,
-      appointmentDate: selectedDate,
-      problemDescription: problemDescription,
+      email,
+      selectedDoctor,
+      selectedDate,
+      problemDescription,
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/appointments', appointmentData);
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/appointments",
+        appointmentData
+      );
       if (response.status === 200) {
         setConfirmationMessage(
-          `Appointment confirmed with ${selectedDoctor.name} on ${selectedDate.toDateString()}.`
+          `Appointment confirmed with ${
+            selectedDoctor.name
+          } on ${selectedDate.toDateString()}.`
         );
       }
     } catch (err) {
       console.error("Error while booking appointment:", err);
       alert("Failed to confirm appointment. Please try again.");
     }
-    
-    setSelectedDoctor(null);  // Reset doctor selection after confirming appointment
+
+    setSelectedDoctor(null); // Reset doctor selection after confirming appointment
   };
+
+  // NodeMailer Services added start
+  const appointmentConfirm = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/send-confirmation",
+        {
+          email,
+          doctorsData,
+          selectedDate,
+          problemDescription,
+        }
+      );
+
+      setMessage(response.data);
+    } catch (error) {
+      setMessage("Failed to send confirmation email");
+      console.error(error);
+    }
+  };
+  // NodeMailer Services added end
 
   const closePopup = () => {
     setSelectedDoctor(null);
@@ -95,8 +130,14 @@ const BookAppointment = () => {
   return (
     <>
       <Header text={"Login"} />
-      <div style={{ backgroundColor: "#F6FFFB" }} className="flex flex-col sm:flex-row min-h-screen bg-gray-100">
-        <div style={{ backgroundColor: "#F6FFFB" }} className="w-full sm:w-1/5 bg-white shadow-lg p-6 mb-6 sm:mb-0">
+      <div
+        style={{ backgroundColor: "#F6FFFB" }}
+        className="flex flex-col sm:flex-row min-h-screen bg-gray-100"
+      >
+        <div
+          style={{ backgroundColor: "#F6FFFB" }}
+          className="w-full sm:w-1/5 bg-white shadow-lg p-6 mb-6 sm:mb-0"
+        >
           <h3 className="text-xl font-bold mb-4 mt-20">Filter by Specialty</h3>
           <select
             style={{ backgroundColor: "#F6FFFB" }}
@@ -119,8 +160,12 @@ const BookAppointment = () => {
             dateFormat="MMMM d, yyyy"
             className="w-full p-2 border border-gray-300 rounded"
             placeholderText="Select a date"
-            highlightDates={[new Date()]}  // Highlight today's date
-            dayClassName={(date) => date.toDateString() === new Date().toDateString() ? "text-blue-500 font-bold" : ""} // Add custom class to today's date
+            highlightDates={[new Date()]} // Highlight today's date
+            dayClassName={(date) =>
+              date.toDateString() === new Date().toDateString()
+                ? "text-blue-500 font-bold"
+                : ""
+            } // Add custom class to today's date
           />
         </div>
         <div className="w-full sm:w-4/5 p-12">
@@ -130,7 +175,10 @@ const BookAppointment = () => {
             </div>
           )}
           <h2 className="text-2xl font-bold mb-6 mt-9">Available Doctors</h2>
-          <div style={{ backgroundColor: "#F6FFFB" }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div
+            style={{ backgroundColor: "#F6FFFB" }}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          >
             {doctorsData.map((doctor) => (
               <div
                 key={doctor.id}
@@ -143,7 +191,10 @@ const BookAppointment = () => {
                     {doctor.experience} years of experience
                   </p>
                   <div className="mb-4">{renderStars(doctor.rating)}</div>
-                  <Click text={"Book Appointment"} onClick={() => handleAppointment(doctor)} />
+                  <Click
+                    text={"Book Appointment"}
+                    onClick={() => handleAppointment(doctor)}
+                  />
                 </div>
                 <div className="w-20 h-20 bg-gray-300 rounded-full overflow-hidden mb-4 sm:mb-0">
                   <img
@@ -164,7 +215,10 @@ const BookAppointment = () => {
                   {selectedDoctor.name} on {selectedDate?.toDateString()}?
                 </p>
                 <div className="mt-4">
-                  <label htmlFor="problemDescription" className="block font-medium mb-2">
+                  <label
+                    htmlFor="problemDescription"
+                    className="block font-medium mb-2"
+                  >
                     Describe Your Problem (required, less than 30 words)
                   </label>
                   <textarea
@@ -180,7 +234,7 @@ const BookAppointment = () => {
                   <Click text={"Cancel"} onClick={closePopup} />
                   <Click
                     text={loading ? "Confirming..." : "Confirm Appointment"}
-                    onClick={confirmAppointment}
+                    onClick={{ confirmAppointment, appointmentConfirm }}
                     disabled={loading}
                   />
                 </div>
