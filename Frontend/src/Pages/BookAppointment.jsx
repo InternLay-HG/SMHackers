@@ -9,36 +9,69 @@ const BookAppointment = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [filter, setFilter] = useState("All");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [problemDescription, setProblemDescription] = useState("");
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [problemDescription, setProblemDescription] = useState("");
-  const [doctorsData, setDoctorData] = useState([]);
-  const [message, setMessage] = useState(null);
+  // const [doctorsData, setDoctorData] = useState([]);
 
-  const email = localStorage.get("userEmail");
+  const email = localStorage.getItem("userEmail");
 
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/patient/doctors"
-        );
-        setDoctorData(response.data.doctors);
-      } catch (err) {
-        console.error(err.response?.data?.message || err.message);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchDoctors = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://localhost:3000/api/v1/patient/doctors"
+  //       );
+  //       setDoctorData(response.data.doctors);
+  //     } catch (err) {
+  //       console.error(err.response?.data?.message || err.message);
+  //     }
+  //   };
 
-    fetchDoctors();
-  }, []);
+  //   fetchDoctors();
+  // }, []);
+
+  const doctorsData = [
+    {
+      id: 1,
+      name: "Dr. Arjun Sharma",
+      specialty: "Cardiologist",
+      profilePhoto: "https://via.placeholder.com/150",
+      experience: "10 years",
+      rating: 4.8,
+      location: "Delhi, India",
+    },
+  ];
 
   const handleAppointment = (doctor) => {
     setSelectedDoctor(doctor);
     setConfirmationMessage("");
-    setProblemDescription(""); // Reset problem description when selecting a new doctor
+    setProblemDescription("");
   };
 
-  const confirmAppointment = async () => {
+  const SendAppointmentToDatabase = async () => {
+    const Appointmentdata = {
+      email: email,
+      selectedDate: selectedDate.toLocaleDateString(),
+      doctorName: selectedDoctor.name,
+      problemDescription: problemDescription,
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/appointments",
+        Appointmentdata
+      );
+      if (response.status === 200) {
+        console.log("Booking Appointment Data sent to our Database");
+      }
+    } catch (err) {
+      console.error("Error while booking appointment:", err);
+    }
+  };
+
+  // NodeMailer Services added start
+  const appointmentConfirm = async (e) => {
+    e.preventDefault();
     if (!selectedDate || selectedDate < new Date()) {
       alert("Please select a valid appointment date from the date picker.");
       return;
@@ -51,52 +84,40 @@ const BookAppointment = () => {
       return;
     }
 
-    const appointmentData = {
-      email,
-      selectedDoctor,
-      selectedDate,
-      problemDescription,
+    console.log("Appointment Appointment start");
+    setLoading(true); // Show the loading message
+    setConfirmationMessage(
+      "Your Appointment Booking is in process, Plese wait !"
+    );
+    const Appointmentdata = {
+      email: email,
+      selectedDate: selectedDate.toLocaleDateString(),
+      doctorName: selectedDoctor.name,
+      problemDescription: problemDescription,
     };
-
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/appointments",
-        appointmentData
+        "http://localhost:3000/api/v1/email/send-confirmation",
+        Appointmentdata
       );
       if (response.status === 200) {
         setConfirmationMessage(
           `Appointment confirmed with ${
             selectedDoctor.name
-          } on ${selectedDate.toDateString()}.`
+          } on ${selectedDate.toDateString()}. You will also receive a confirmation email.`
         );
+
+        // send data to database after booking
+        SendAppointmentToDatabase();
+        console.log("Data sent to Database");
       }
-    } catch (err) {
-      console.error("Error while booking appointment:", err);
-      alert("Failed to confirm appointment. Please try again.");
-    }
-
-    setSelectedDoctor(null); // Reset doctor selection after confirming appointment
-  };
-
-  // NodeMailer Services added start
-  const appointmentConfirm = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/send-confirmation",
-        {
-          email,
-          doctorsData,
-          selectedDate,
-          problemDescription,
-        }
-      );
-
-      setMessage(response.data);
     } catch (error) {
-      setMessage("Failed to send confirmation email");
-      console.error(error);
+      console.error("Error:", error);
+      alert("An error occurred while booking the appointment.");
     }
+
+    console.log("Appointment Appointment end");
+    setSelectedDoctor(null);
   };
   // NodeMailer Services added end
 
@@ -153,6 +174,7 @@ const BookAppointment = () => {
             </option>
           </select>
           <h3 className="text-xl font-bold mb-4 mt-12">Pick a Date</h3>
+
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
@@ -165,7 +187,7 @@ const BookAppointment = () => {
               date.toDateString() === new Date().toDateString()
                 ? "text-blue-500 font-bold"
                 : ""
-            } // Add custom class to today's date
+            }
           />
         </div>
         <div className="w-full sm:w-4/5 p-12">
@@ -234,7 +256,7 @@ const BookAppointment = () => {
                   <Click text={"Cancel"} onClick={closePopup} />
                   <Click
                     text={loading ? "Confirming..." : "Confirm Appointment"}
-                    onClick={{ confirmAppointment, appointmentConfirm }}
+                    onClick={appointmentConfirm}
                     disabled={loading}
                   />
                 </div>
