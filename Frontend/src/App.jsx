@@ -11,6 +11,7 @@ import Appointment from "./Pages/Appointment.jsx";
 import { PrescriptionForm } from "./Pages/Prescription.jsx";
 import { SignupGoogle } from "./Pages/SignupGoogle.jsx";
 import BookAppointment from "./Pages/BookAppointment.jsx";
+import { ChatApp } from "./Pages/Chat.jsx";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             path="/prescriptionform"
             element={<PrescriptionForm />}
           ></Route>
+          <Route path="/chat" element={<ChatApp/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

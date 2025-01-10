@@ -1,22 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Header } from "../components/header";
-
 export const ChatApp = () => {
     const [messages, setMessages] = useState([]);
     const [activeMessage, setActive] = useState("");
     const messagesEndRef = useRef(null);
-
+    const [socket, setSocket] = useState(null);
+    const messagesContainerRef = useRef(null);
     const handleSendMessage = () => {
         if (activeMessage.trim()) {
             setMessages((prevMessages) => [...prevMessages, activeMessage]);
             setActive("");
+            socket.send(activeMessage);
         }
     };
+
     useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        const newSocket = new WebSocket('ws://localhost:8080');
+        newSocket.onopen = () => {
+            console.log('Connection established');
+            setSocket(newSocket);
+        };
+
+        newSocket.onmessage = (message) => {
+            console.log('Message received:', message.data);
+            setMessages((m) => [...m, message.data]);
+        };
+        return () => {
+            newSocket.close();
+        };
+    }, []); 
+
+    useEffect(() => {
+        const container = messagesContainerRef.current;
+        if (container) {
+            const isAtBottom =
+                container.scrollHeight - container.scrollTop === container.clientHeight;
+            if (isAtBottom) {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+            }
         }
     }, [messages]);
+
+    if (!socket) {
+        return <div>Connecting to Server...</div>;
+    }
 
     return (
         <div className="w-screen h-screen bg-basic-green">
@@ -28,19 +55,15 @@ export const ChatApp = () => {
                     </div>
 
                     <div className="w-full h-5/6 bg-[#FBF6E9] rounded-b-xl relative">
-                        {/* Messages container */}
-                        <div className="p-4 space-y-2 overflow-y-auto max-h-full">
+                        <div ref={messagesContainerRef} className="p-4 space-y-2 overflow-y-auto max-h-full">
                             {messages.map((message, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-white p-2 rounded-lg shadow"
-                                >
+                                <div key={index} className="bg-white p-2 rounded-lg shadow">
                                     {message}
                                 </div>
                             ))}
-                            {/* Invisible element to scroll into view */}
                             <div ref={messagesEndRef}></div>
                         </div>
+
                         <div className="absolute w-[90%] bottom-5 left-[65px] flex items-center">
                             <input
                                 type="text"
