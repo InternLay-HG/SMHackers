@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Header } from "../components/header";
+
 export const ChatApp = () => {
     const [messages, setMessages] = useState([]);
     const [activeMessage, setActive] = useState("");
     const messagesEndRef = useRef(null);
     const [socket, setSocket] = useState(null);
     const messagesContainerRef = useRef(null);
+    const [autoScroll, setAutoScroll] = useState(true);
+
     const handleSendMessage = () => {
         if (activeMessage.trim()) {
             setMessages((prevMessages) => [...prevMessages, activeMessage]);
@@ -15,31 +18,36 @@ export const ChatApp = () => {
     };
 
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:8080');
+        const newSocket = new WebSocket("ws://localhost:8080");
         newSocket.onopen = () => {
-            console.log('Connection established');
             setSocket(newSocket);
         };
-
         newSocket.onmessage = (message) => {
-            console.log('Message received:', message.data);
             setMessages((m) => [...m, message.data]);
         };
         return () => {
             newSocket.close();
         };
-    }, []); 
+    }, []);
 
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (container) {
-            const isAtBottom =
-                container.scrollHeight - container.scrollTop === container.clientHeight;
-            if (isAtBottom) {
-                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-            }
+            const handleScroll = () => {
+                const isAtBottom =
+                    Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 5;
+                setAutoScroll(isAtBottom);
+            };
+            container.addEventListener("scroll", handleScroll);
+            return () => container.removeEventListener("scroll", handleScroll);
         }
-    }, [messages]);
+    }, []);
+
+    useEffect(() => {
+        if (autoScroll) {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages, autoScroll]);
 
     if (!socket) {
         return <div>Connecting to Server...</div>;
@@ -53,9 +61,11 @@ export const ChatApp = () => {
                     <div className="w-full h-1/6 bg-[#E3F0AF] rounded-t-xl px-8 py-4 shadow-lg border-b-1 border-black">
                         Chatting To:
                     </div>
-
                     <div className="w-full h-5/6 bg-[#FBF6E9] rounded-b-xl relative">
-                        <div ref={messagesContainerRef} className="p-4 space-y-2 overflow-y-auto max-h-full">
+                        <div
+                            ref={messagesContainerRef}
+                            className="p-4 space-y-2 overflow-y-auto max-h-full"
+                        >
                             {messages.map((message, index) => (
                                 <div key={index} className="bg-white p-2 rounded-lg shadow">
                                     {message}
@@ -63,7 +73,6 @@ export const ChatApp = () => {
                             ))}
                             <div ref={messagesEndRef}></div>
                         </div>
-
                         <div className="absolute w-[90%] bottom-5 left-[65px] flex items-center">
                             <input
                                 type="text"
