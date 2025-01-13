@@ -12,36 +12,36 @@ const BookAppointment = () => {
   const [problemDescription, setProblemDescription] = useState("");
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [doctorsData, setDoctorData] = useState([]);
+  const [doctorsData, setDoctorData] = useState([]);
 
   const email = localStorage.getItem("userEmail");
 
-  // useEffect(() => {
-  //   const fetchDoctors = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:3000/api/v1/patient/doctors"
-  //       );
-  //       setDoctorData(response.data.doctors);
-  //     } catch (err) {
-  //       console.error(err.response?.data?.message || err.message);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/patient/doctors"
+        );
+        setDoctorData(response.data.doctors);
+      } catch (err) {
+        console.error(err.response?.data?.message || err.message);
+      }
+    };
 
-  //   fetchDoctors();
-  // }, []);
+    fetchDoctors();
+  }, []);
 
-  const doctorsData = [
-    {
-      id: 1,
-      name: "Dr. Arjun Sharma",
-      specialty: "Cardiologist",
-      profilePhoto: "https://via.placeholder.com/150",
-      experience: "10 years",
-      rating: 4.8,
-      location: "Delhi, India",
-    },
-  ];
+  // const doctorsData = [
+  //   {
+  //     id: 1,
+  //     name: "Dr. Arjun Sharma",
+  //     specialty: "Cardiologist",
+  //     profilePhoto: "https://via.placeholder.com/150",
+  //     experience: "10 years",
+  //     rating: 4.8,
+  //     location: "Delhi, India",
+  //   },
+  // ];
 
   const handleAppointment = (doctor) => {
     setSelectedDoctor(doctor);
