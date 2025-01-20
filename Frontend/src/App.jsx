@@ -36,6 +36,7 @@ function App() {
           <Route path="/chat" element={<ChatApp/>}></Route>
         </Routes>
       </BrowserRouter>
+      
     </div>
   );
 }
