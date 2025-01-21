@@ -11,7 +11,7 @@ const PrescriptionSchema = new mongoose.Schema({
         {
             name: String,
             dosage: String,
-            frequency: String 
+            frequency: String,
         }
     ],
     date: { type: Date, default: Date.now } 

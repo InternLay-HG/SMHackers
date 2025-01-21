@@ -14,7 +14,18 @@ const userSchema = new mongoose.Schema({
     address: String,
     role: String
 });
+
+const detailSchema = new mongoose.Schema({
+    userId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    },
+    chronicDiseases: String,
+    allergies: String
+});
 const User = mongoose.model('User', userSchema);
+const Details= mongoose.model('Details',detailSchema);
 module.exports = {
-	User
+	User,
+    Details
 };
