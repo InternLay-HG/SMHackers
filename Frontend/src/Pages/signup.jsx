@@ -18,6 +18,8 @@ export const Signup = () => {
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("patient");
   const [errorMessage, setError] = useState("");
+  const [Allergies, setAllergies] = useState("");
+  const [Diseases, setDiseases] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handlePincodeChange = (e) => {
@@ -379,6 +381,27 @@ export const Signup = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
+            {role === "patient" && (
+  <section className="flex justify-around gap-1">
+    <Inputfield
+      text={"Allergies"}
+      type={"text"}
+      id={"allergies"}
+      onChange={(e) => {
+        setAllergies(e.target.value);
+      }}
+    />
+    <Inputfield
+      text={"Chronic Disease"}
+      type={"text"}
+      id={"disease"}
+      onChange={(e) => {
+        setDiseases(e.target.value);
+      }}
+    />
+  </section>
+)}
+
 
             <div>
               {errorMessage !== "" ? (
