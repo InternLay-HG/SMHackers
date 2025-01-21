@@ -21,7 +21,7 @@ cd SMHackers
 
        DB_URL=your_database_url
 
-    Replace your_database_url with your PostgreSQL database connection string.  
+    Replace your_database_url with your MongoDB database connection string.  
 
 3.  
          npm install
