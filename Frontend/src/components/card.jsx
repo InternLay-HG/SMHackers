@@ -1,6 +1,7 @@
 export const Card=(
     {text=null,
-    image=null}
+    image=null,
+    info=null}
 )=>{
     return(
         <div className="rounded-lg h-44 w-40 sm:h-48 sm:w-40 lg:h-56 lg:w-48  border-[#00693B] shrink-0 mx-4 md:mx-0">
@@ -14,7 +15,7 @@ export const Card=(
             
             </div>
             <div className=" p-3 md:p-5 text-[#92C1B6] sm:text-base  font-inter text-sm bg-white overflow-y-scroll no-scrollbar  rounded-b-xl">
-              "(state control variable logic)"
+              {info}
             </div>
             
         </div> 

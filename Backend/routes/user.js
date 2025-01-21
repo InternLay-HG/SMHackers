@@ -3,7 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 const zod = require("zod");
-const { User } = require("../db/db.js");
+const { User, Details } = require("../db/db.js");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config.js");
 const {getUserLocation} = require('../apis/hospital.js');
@@ -23,6 +23,8 @@ const signupBody = zod.object({
 });
 
 const getHospitals = require('../apis/hospital.js');
+const Appointment = require('../db/appointments.js');
+const Prescription = require('../db/prescription.js');
 
 router.get('/location', async (req, res) => {
     const { lat, lon } = req.query;
@@ -115,5 +117,41 @@ router.post("/signup", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+  router.get("/getDetails", async (req, res) => {
+    try {
+      const patientId = req.query.patientId;
+  
+      if (!patientId) {
+        return res.status(400).json({ message: "Patient ID is required" });
+      }
+  
+      const appointmentData = await Appointment.find({ patient: patientId }).sort({
+        appointmentDate: 1,
+        appointmentTime: 1,
+      });
+  
+      const medicineData = await Prescription.find({ patient: patientId });
+  
+      const detailsData = await Details.find({ userId: patientId });
+      const result = {
+        appointments: appointmentData.length > 0 ? appointmentData : "No appointments found",
+        reminder: medicineData.length > 0 ? medicineData : "No medicine reminders found",
+        details: detailsData.length > 0 ? detailsData : "No additional details found",
+      };
+  
+      res.status(200).json({
+        success: true,
+        data: result,
+      });
+    } catch (err) {
+      console.error("Error fetching patient details:", err);
+      res.status(500).json({
+        success: false,
+        message: "An error occurred while fetching details",
+        error: err.message,
+      });
+    }
+  });
+  
 
 module.exports = router;
