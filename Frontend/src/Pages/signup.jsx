@@ -427,6 +427,7 @@ export const Signup = () => {
                         pincode,
                         address,
                         role,
+                        
                       }
                     );
                     localStorage.setItem("token", response.data.token);

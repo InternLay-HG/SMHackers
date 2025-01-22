@@ -388,6 +388,7 @@ export const SignupGoogle = () => {
                       pincode,
                       address,
                       role,
+                      
                     }
                   );
                   localStorage.setItem("token", response.data.token);
