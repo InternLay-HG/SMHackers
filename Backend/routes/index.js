@@ -14,7 +14,6 @@ router.use("/user", userRouter);
 router.use("/doctor",doctorRouter);
 router.use('/patient',patientRouter);
 router.use('/email',emailRouter);
-router.use('/authroutes',authRoutes);
 router.use('/administrator',adminRoutes);
 
 module.exports = router;

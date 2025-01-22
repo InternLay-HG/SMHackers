@@ -11,6 +11,6 @@ router.get('/viewappointments', async (req,res)=>{
         const appointments=await Appointment.find({patient:patientId});
     }
     catch(err){
-        res.json({message:'Failed to fetch patient Appointments'})
+        res.json({message:'Failed to fetch patient Appointments'});
     }
 });

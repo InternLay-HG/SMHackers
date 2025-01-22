@@ -24,7 +24,7 @@ export const GoogleOAuthLogin = () => {
     const handleSubmit = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/v1/authroutes/unique-signup",
+          "http://localhost:3000/api/v1/user/unique-signup",
           { email }
         );
         console.log(response.data.message);
@@ -32,7 +32,7 @@ export const GoogleOAuthLogin = () => {
         navigate("/signupgoogle");
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          console.log(error.response.data.message); // "Email already registered"
+          console.log(error.response.data.message); 
           navigate("/appointments/book");
         } else {
           console.log("An error occurred. Please try again.");

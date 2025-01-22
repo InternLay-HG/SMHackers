@@ -1,0 +1,143 @@
+[
+    {
+      "disease": "Common Cold",
+      "symptoms": ["Sneezing", "Runny nose", "Congestion", "Sore throat"],
+      "precautions": ["Wash hands frequently", "Avoid close contact with sick individuals", "Stay hydrated"],
+      "cure": ["Rest", "Hydration", "Over-the-counter cold medications"],
+      "suggestions": ["Use a humidifier", "Gargle with salt water", "Avoid smoking"]
+    },
+    {
+      "disease": "Influenza (Flu)",
+      "symptoms": ["Fever", "Cough", "Body aches", "Fatigue"],
+      "precautions": ["Get vaccinated annually", "Practice good hygiene", "Avoid crowded areas during outbreaks"],
+      "cure": ["Antiviral medications", "Rest", "Fluids"],
+      "suggestions": ["Monitor symptoms for complications", "Seek medical attention for high-risk groups", "Take vitamin C"]
+    },
+    {
+      "disease": "Diabetes Type 2",
+      "symptoms": ["Increased thirst", "Frequent urination", "Fatigue", "Blurred vision"],
+      "precautions": ["Maintain a healthy diet", "Exercise regularly", "Monitor blood sugar levels"],
+      "cure": ["Lifestyle changes", "Medications like metformin", "Insulin therapy (if necessary)"],
+      "suggestions": ["Consult a dietitian", "Avoid sugary foods", "Check glucose levels daily"]
+    },
+    {
+      "disease": "Hypertension",
+      "symptoms": ["Headaches", "Shortness of breath", "Nosebleeds", "Chest pain"],
+      "precautions": ["Reduce salt intake", "Exercise regularly", "Monitor blood pressure"],
+      "cure": ["Medications like ACE inhibitors", "Lifestyle changes", "Reduce stress"],
+      "suggestions": ["Limit alcohol consumption", "Maintain a healthy weight", "Avoid smoking"]
+    },
+    {
+      "disease": "Asthma",
+      "symptoms": ["Wheezing", "Shortness of breath", "Chest tightness", "Coughing"],
+      "precautions": ["Avoid allergens", "Use a preventive inhaler", "Stay away from smoke"],
+      "cure": ["Inhaled corticosteroids", "Bronchodilators", "Allergy treatments"],
+      "suggestions": ["Keep an asthma action plan", "Monitor symptoms", "Avoid triggers like pollen"]
+    },
+    {
+      "disease": "Migraine",
+      "symptoms": ["Throbbing headache", "Nausea", "Sensitivity to light", "Aura"],
+      "precautions": ["Avoid triggers like bright lights", "Maintain a regular sleep schedule", "Stay hydrated"],
+      "cure": ["Pain relievers", "Triptans", "Preventive medications"],
+      "suggestions": ["Practice relaxation techniques", "Use ice packs for relief", "Avoid stress"]
+    },
+    {
+      "disease": "Tuberculosis (TB)",
+      "symptoms": ["Persistent cough", "Weight loss", "Night sweats", "Fatigue"],
+      "precautions": ["Wear a mask in high-risk areas", "Avoid close contact with TB patients", "Ensure good ventilation"],
+      "cure": ["Antibiotics like isoniazid and rifampin", "Complete the full course of treatment"],
+      "suggestions": ["Improve nutrition", "Avoid smoking", "Report symptoms early"]
+    },
+    {
+      "disease": "HIV/AIDS",
+      "symptoms": ["Fever", "Swollen lymph nodes", "Skin rashes", "Weight loss"],
+      "precautions": ["Practice safe sex", "Avoid sharing needles", "Get tested regularly"],
+      "cure": ["Antiretroviral therapy (ART)"],
+      "suggestions": ["Stay informed about the condition", "Join support groups", "Follow treatment strictly"]
+    },
+    {
+      "disease": "Dengue",
+      "symptoms": ["High fever", "Severe headache", "Joint pain", "Skin rash"],
+      "precautions": ["Use mosquito repellent", "Wear long-sleeved clothing", "Remove standing water"],
+      "cure": ["Symptomatic treatment", "Rest", "Hydration"],
+      "suggestions": ["Monitor platelet count", "Seek medical attention for severe symptoms", "Avoid aspirin"]
+    },
+    {
+      "disease": "Malaria",
+      "symptoms": ["Chills", "Fever", "Sweating", "Nausea"],
+      "precautions": ["Use mosquito nets", "Take antimalarial drugs before traveling", "Avoid mosquito bites"],
+      "cure": ["Antimalarial drugs like chloroquine", "Hospitalization for severe cases"],
+      "suggestions": ["Improve sanitation", "Stay hydrated", "Report symptoms early"]
+    },
+    {
+      "disease": "Chickenpox",
+      "symptoms": ["Itchy rash", "Fever", "Fatigue", "Loss of appetite"],
+      "precautions": ["Get vaccinated", "Avoid close contact with infected individuals", "Wash hands frequently"],
+      "cure": ["Symptomatic treatment", "Antihistamines for itching", "Rest"],
+      "suggestions": ["Apply calamine lotion", "Use cool baths", "Keep fingernails short"]
+    },
+    {
+      "disease": "Typhoid",
+      "symptoms": ["High fever", "Abdominal pain", "Weakness", "Loss of appetite"],
+      "precautions": ["Drink clean water", "Wash hands before meals", "Avoid raw food"],
+      "cure": ["Antibiotics like ciprofloxacin", "Rest", "Fluids"],
+      "suggestions": ["Maintain good hygiene", "Follow a balanced diet", "Complete antibiotic course"]
+    },
+    {
+      "disease": "COVID-19",
+      "symptoms": ["Fever", "Cough", "Shortness of breath", "Loss of taste or smell"],
+      "precautions": ["Wear masks", "Practice social distancing", "Get vaccinated"],
+      "cure": ["Symptomatic treatment", "Antiviral drugs for severe cases"],
+      "suggestions": ["Stay isolated if symptomatic", "Monitor oxygen levels", "Stay hydrated"]
+    },
+    {
+      "disease": "Hepatitis B",
+      "symptoms": ["Jaundice", "Dark urine", "Fatigue", "Abdominal pain"],
+      "precautions": ["Get vaccinated", "Avoid sharing personal items", "Practice safe sex"],
+      "cure": ["Antiviral medications", "Liver health monitoring"],
+      "suggestions": ["Avoid alcohol", "Eat a liver-friendly diet", "Follow doctor’s advice"]
+    },
+    {
+      "disease": "Pneumonia",
+      "symptoms": ["Cough with phlegm", "Fever", "Chest pain", "Difficulty breathing"],
+      "precautions": ["Get vaccinated", "Avoid smoking", "Practice good hygiene"],
+      "cure": ["Antibiotics", "Hospital care for severe cases"],
+      "suggestions": ["Use steam inhalation", "Stay hydrated", "Follow prescribed antibiotics"]
+    },
+    {
+      "disease": "Leprosy",
+      "symptoms": ["Skin lesions", "Numbness", "Weakness", "Ulcers"],
+      "precautions": ["Early diagnosis", "Avoid close contact with untreated patients"],
+      "cure": ["Multidrug therapy (MDT)"],
+      "suggestions": ["Maintain good hygiene", "Follow treatment plan", "Avoid stigma"]
+    },
+    {
+      "disease": "Eczema",
+      "symptoms": ["Itchy skin", "Red patches", "Dry skin", "Inflammation"],
+      "precautions": ["Avoid harsh soaps", "Moisturize regularly", "Identify and avoid triggers"],
+      "cure": ["Topical steroids", "Antihistamines", "Moisturizers"],
+      "suggestions": ["Use lukewarm water for bathing", "Wear soft fabrics", "Avoid scratching"]
+    },
+    {
+      "disease": "Cervical Cancer",
+      "symptoms": ["Abnormal bleeding", "Pelvic pain", "Pain during intercourse"],
+      "precautions": ["Get vaccinated against HPV", "Regular Pap smears"],
+      "cure": ["Surgery", "Radiation therapy", "Chemotherapy"],
+      "suggestions": ["Maintain a healthy lifestyle", "Quit smoking", "Follow medical advice"]
+    },
+    {
+      "disease": "Psoriasis",
+      "symptoms": ["Scaly patches", "Itching", "Skin redness"],
+      "precautions": ["Avoid stress", "Keep skin moisturized", "Avoid triggers like alcohol"],
+      "cure": ["Topical treatments", "Phototherapy", "Systemic medications"],
+      "suggestions": ["Use medicated shampoos", "Follow a skincare routine", "Consult a dermatologist"]
+    },
+    {
+      "disease": "Rheumatoid Arthritis",
+      "symptoms": ["Joint pain", "Swelling", "Fatigue", "Stiffness"],
+      "precautions": ["Avoid repetitive joint strain", "Maintain a healthy weight"],
+      "cure": ["Anti-inflammatory drugs", "Physical therapy", "Joint replacement surgery (in severe cases)"],
+      "suggestions": ["Apply heat/cold packs", "Practice gentle exercises", "Use assistive devices if needed"]
+    }
+  ]
+  
