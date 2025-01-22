@@ -64,7 +64,7 @@ router.post("/signup", async (req, res) => {
         state: req.body.state,
         city: req.body.city,
         address: req.body.address,
-        role: req.body.role
+        role: req.body.role,
       });
   
       const token = jwt.sign({ userId: user._id }, JWT_SECRET);
@@ -152,6 +152,26 @@ router.post("/signup", async (req, res) => {
       });
     }
   });
+
+  router.post('/postDetails',async (req,res)=>{
+    try{
+      const userId=req.body.userId;
+      const allergies=req.body.allergies;
+      const diseases=req.body.diseases;
+      const user=await Details.create({
+        userId:userId,
+        chronicDiseases:diseases,
+        allergies:allergies
+      });
+      res.json({
+        message:"Created details successfully"
+      });
+
+    }
+    catch(err){
+      res.json({message:err});
+    }
+  });
   
   router.post('/unique-signup', async (req, res) => {
     const { email } = req.body;
@@ -161,9 +181,6 @@ router.post("/signup", async (req, res) => {
       if (existingUser) {
         return res.status(400).json({ message: 'Email already registered' });
       }
-  
-      const newUser = new User({ email });
-      await newUser.save();
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
       res.status(500).json({ message: 'Server error' });
