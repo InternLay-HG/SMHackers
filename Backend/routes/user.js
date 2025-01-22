@@ -64,7 +64,7 @@ router.post("/signup", async (req, res) => {
         state: req.body.state,
         city: req.body.city,
         address: req.body.address,
-        role: req.body.role
+        role: req.body.role,
       });
   
       const token = jwt.sign({ userId: user._id }, JWT_SECRET);
@@ -150,6 +150,23 @@ router.post("/signup", async (req, res) => {
         message: "An error occurred while fetching details",
         error: err.message,
       });
+    }
+  });
+
+  router.post('/postDetails',async (req,res)=>{
+    try{
+      const userId=req.body.userId;
+      const allergies=req.body.allergies;
+      const diseases=req.body.diseases;
+      const user=await Details.create({
+        userId:userId,
+        chronicDiseases:diseases,
+        allergies:allergies
+      });
+
+    }
+    catch(err){
+      res.json({message:err});
     }
   });
   
