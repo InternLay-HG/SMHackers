@@ -12,7 +12,7 @@ import { PrescriptionForm } from "./Pages/Prescription.jsx";
 import { SignupGoogle } from "./Pages/SignupGoogle.jsx";
 import BookAppointment from "./Pages/BookAppointment.jsx";
 import { ChatApp } from "./Pages/Chat.jsx";
-import { Precautions } from "./Pages/Precautions.jsx";
+// import { Precautions } from "./Pages/Precautions.jsx";
 
 function App() {
   return (
