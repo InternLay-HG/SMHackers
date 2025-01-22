@@ -17,9 +17,7 @@ export const GoogleOAuthLogin = () => {
     console.log(decode.given_name);
     localStorage.setItem("userEmail", decode.email);
 
-
     const email = decode.email;
-
 
     const handleSubmit = async () => {
       try {
@@ -32,8 +30,9 @@ export const GoogleOAuthLogin = () => {
         navigate("/signupgoogle");
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          console.log(error.response.data.message); 
-          navigate("/appointments/book");
+          console.log(error.response.data.message);
+          navigate("/");
+          window.location.reload();
         } else {
           console.log("An error occurred. Please try again.");
         }
