@@ -14,6 +14,8 @@ export const SignupGoogle = () => {
   const [pincode, setPincode] = useState(0);
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("patient");
+  const [Allergies, setAllergies] = useState("");
+    const [Diseases, setDiseases] = useState("");
   const userEmail = localStorage.getItem("userEmail");
 
   const username = userEmail;
@@ -348,6 +350,27 @@ export const SignupGoogle = () => {
                 <option value="admin">Admin</option>
               </select>
             </div>
+            {role==="patient" && (
+              <section className="flex justify-around gap-1">
+              <Inputfield
+                text={"Allergies"}
+                type={"text"}
+                id={"allergies"}
+                onChange={(e) => {
+                  setAllergies(e.target.value);
+                }}
+              />
+              <Inputfield
+                text={"Chronic Disease"}
+                type={"text"}
+                id={"disease"}
+                onChange={(e) => {
+                  setDiseases(e.target.value);
+                }}
+              />
+            </section>
+            )}
+            
 
             <div>
               <button
