@@ -163,6 +163,9 @@ router.post("/signup", async (req, res) => {
         chronicDiseases:diseases,
         allergies:allergies
       });
+      res.json({
+        message:"Created details successfully"
+      });
 
     }
     catch(err){
