@@ -5,7 +5,7 @@ const doctorRouter= require('./doctor')
 const patientRouter = require('./patient')
 const emailRouter = require('./email')
 const authRoutes = require('./authRoutes')
-
+const adminRoutes=require('./administrator')
 
 
 const router = express.Router();
@@ -15,5 +15,6 @@ router.use("/doctor",doctorRouter);
 router.use('/patient',patientRouter);
 router.use('/email',emailRouter);
 router.use('/authroutes',authRoutes);
+router.use('/administrator',adminRoutes);
 
 module.exports = router;
