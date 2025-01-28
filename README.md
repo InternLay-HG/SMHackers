@@ -9,6 +9,8 @@ Steps to Run the Project
 
 git clone https://github.com/InternLay-HG/SMHackers.git
 
+git checkout develop
+
 cd SMHackers
 
 ### 2\. Backend Setup
