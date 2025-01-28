@@ -1,5 +1,64 @@
 # Medical Record System
 
+
+
+Steps to Run the Project
+------------------------
+
+### 1\. Clone the Repository
+
+git clone https://github.com/InternLay-HG/SMHackers.git
+
+cd SMHackers
+
+### 2\. Backend Setup
+
+1.  Navigate to the backend folder: 
+    
+2. Create a .env file:
+
+      Add the following variables:
+
+       DB_URL=your_database_url
+
+    Replace your_database_url with your MongoDB database connection string.  
+
+3.  
+         npm install
+    
+4.     node index.js
+
+  The backend server should now be running on http://localhost:3000.
+    
+
+To Enable the chat feature:
+
+Open a new terminal window.
+
+Navigate to the backend folder (if not already there):
+    
+    *  Open a new terminal window.
+        
+    *  cd backend
+        
+    *   node chat.js
+        
+
+### 3\. Frontend Setup
+
+1.  cd ../frontend
+    
+2.  npm install
+    
+3.  npm run dev
+
+The frontend app should now be running on http://localhost:5173.
+    
+
+### 4\. Access the Application
+
+*   Open your browser and navigate to http://localhost:5173 for the frontend.
+
 ## Team Name: SMHackers
 ### Members:
 - Harshal Gupta
