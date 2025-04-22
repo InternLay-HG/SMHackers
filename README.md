@@ -6,7 +6,7 @@ Steps to Run the Project
 ------------------------
 
 ### 1\. Clone the Repository
-
+#### Make sure to be the develop branch.
 git clone https://github.com/InternLay-HG/SMHackers.git
 
 git checkout develop
