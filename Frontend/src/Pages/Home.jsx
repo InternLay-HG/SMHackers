@@ -18,6 +18,7 @@ import { useRecoilState } from 'recoil';
 import { isLoggedInAtom } from '../../atoms/loginAtom.jsx';
 import { Homepage } from "../components/Homepage.jsx";
 import axios from 'axios'; 
+import { ChatWidget } from "../components/chatpopup.jsx"; 
 
 export const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
@@ -33,7 +34,6 @@ export const Home = () => {
         const token = localStorage.getItem('token');
         const id = localStorage.getItem('userid');
         setRole(localStorage.getItem('role'));
-        console.log(id);
         if (token) {
           setIsLoggedIn(true);
         }
@@ -51,6 +51,7 @@ export const Home = () => {
 
     fetchDetails();
   }, []); 
+
   return (
     <div className="bg-[#f6fffb] h-screen">
       <Header />
@@ -72,7 +73,7 @@ export const Home = () => {
               <Button color={"bg-[#E6F9E3]"} text={"Lab"} image={Lab} prop={"hidden"} />
             </Link>
             <Link to='/precautions'>
-            <Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} />
+              <Button color={"bg-[#EFEEFD]"} text={"Precautions"} image={Precautions} prop={"hidden"} />
             </Link>
           </div>
           <div className="flex px-5 md:px-20 justify-evenly gap-6 sm:gap-8 md:gap-10 lg:gap-12 bg-[#f6fffb] overflow-x-scroll no-scrollbar overflow-y-clip ">
@@ -86,6 +87,7 @@ export const Home = () => {
       ) : (
         <Homepage />
       )}
+      <ChatWidget />
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { PrescriptionForm } from "./Pages/Prescription.jsx";
 import { SignupGoogle } from "./Pages/SignupGoogle.jsx";
 import BookAppointment from "./Pages/BookAppointment.jsx";
 import { ChatApp } from "./Pages/Chat.jsx";
-// import { Precautions } from "./Pages/Precautions.jsx";
+import { Precautions } from "./Pages/Precautions.jsx";
 
 function App() {
   return (
@@ -30,6 +30,8 @@ function App() {
           <Route path="/prescription" element={<Prescription />}></Route>
           <Route path="/hospitals" element={<Hospital />}></Route>
           <Route path="/appointments/book" element={<BookAppointment/>}></Route>
+          <Route path="/appointments/:id" element={<BookAppointment/>}></Route>
+          <Route path="/precautions" element={<Precautions />}></Route>
           <Route
             path="/prescriptionform"
             element={<PrescriptionForm />}

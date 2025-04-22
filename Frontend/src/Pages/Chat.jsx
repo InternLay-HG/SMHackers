@@ -1,96 +1,83 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Header } from "../components/header";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
-export const ChatApp = () => {
-    const [messages, setMessages] = useState([]);
+export function ChatApp() {
     const [activeMessage, setActive] = useState("");
-    const messagesEndRef = useRef(null);
-    const [socket, setSocket] = useState(null);
-    const messagesContainerRef = useRef(null);
-    const [autoScroll, setAutoScroll] = useState(true);
+    const [messages, setMessages] = useState([
+        {
+            text: "Hi there! Ask me anything about your medical book.",
+            isSent: true,
+        },
+    ]);
 
-    const handleSendMessage = () => {
-        if (activeMessage.trim()) {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { text: activeMessage, isSent: true }
+    const messagesContainerRef = useRef(null);
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
+    const handleSendMessage = async () => {
+        const text = activeMessage.trim();
+        if (!text) return;
+
+        setMessages((prev) => [...prev, { text, isSent: false }]);
+        setActive("");
+
+        try {
+            const response = await axios.post("http://127.0.0.1:5000/query", {
+                question: text,
+            });
+
+            const answer = response.data.answer;
+
+            setMessages((prev) => [
+                ...prev,
+                { text, isSent: false },
+                { text: answer, isSent: true },
             ]);
-            setActive("");
-            socket.send(activeMessage);
+        } catch (err) {
+            console.error("Error fetching answer:", err);
+            setMessages((prev) => [
+                ...prev,
+                { text, isSent: true, error: true, text: "Something went wrong." },
+            ]);
         }
     };
 
-    useEffect(() => {
-        const newSocket = new WebSocket("ws://localhost:8080");
-        newSocket.onopen = () => {
-            setSocket(newSocket);
-        };
-        newSocket.onmessage = (message) => {
-            setMessages((m) => [
-                ...m,
-                { text: message.data, isSent: false }
-            ]);
-        };
-        return () => {
-            newSocket.close();
-        };
-    }, []);
-
-    useEffect(() => {
-        const container = messagesContainerRef.current;
-        if (container) {
-            const handleScroll = () => {
-                const isAtBottom =
-                    Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 5;
-                setAutoScroll(isAtBottom);
-            };
-            container.addEventListener("scroll", handleScroll);
-            return () => container.removeEventListener("scroll", handleScroll);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (autoScroll) {
-            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [messages, autoScroll]);
-
-    if (!socket) {
-        return <div>Connecting to Server...</div>;
-    }
-
     return (
-        <div className="w-screen h-screen bg-[#f6fffb]">
-            <Header />
-            <div className="w-screen h-[90%] justify-items-center">
-                <div className="h-[80%] w-5/6 border-2 border-back-green rounded-xl mt-[70px] shadow-lg shadow-back-green opacity-50">
-                    <div className="w-full h-1/6 bg-[#099E6C] rounded-t-xl px-8 py-4 shadow-lg border-b-1 border-black">
-                        Chatting To:
-                    </div>
-                    <div className="w-full h-5/6 bg-[#60af9522] rounded-b-xl relative">
-                        <div
-                            ref={messagesContainerRef}
-                            className="p-4 space-y-2 overflow-y-auto max-h-full flex flex-col"
-                        >
-                            {messages.map((message, index) => (
-                                <div
-                                    key={index}
-                                    className={`p-2 rounded-lg shadow max-w-[70%] ${
-                                        message.isSent
-                                            ? "bg-white text-black self-start"
-                                            : "bg-[#7cc4b3] text-white self-end"
-                                    }`}
-                                    style={{
-                                        textAlign: message.isSent ? "left" : "right",
-                                    }}
-                                >
-                                    {message.text}
-                                </div>
-                            ))}
-                            <div ref={messagesEndRef}></div>
-                        </div>
-                        <div className="w-full h-[60px] px-4 py-2 flex bg-[#f6fffb] border-t-2 absolute bottom-0 left-0">
+        <div className="h-screen w-full bg-back-green flex flex-col items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl h-full bg-[#f0f8f5] rounded-xl shadow-md flex flex-col">
+                <div className="w-full py-4 px-6 bg-back-green rounded-t-xl text-white text-xl font-bold">
+                    Chat with Your Book 📖
+                </div>
 
+                <div className="w-full h-5/6 bg-[#60af9522] rounded-b-xl flex flex-col">
+                    {/* Chat history */}
+                    <div
+                        ref={messagesContainerRef}
+                        className="p-4 space-y-2 overflow-y-auto flex-1 flex flex-col"
+                    >
+                        {messages.map((message, index) => (
+                            <div
+                                key={index}
+                                className={`p-2 rounded-lg shadow max-w-[70%] ${
+                                    message.isSent
+                                        ? "bg-white text-black self-start"
+                                        : "bg-[#7cc4b3] text-white self-end"
+                                }`}
+                                style={{
+                                    textAlign: message.isSent ? "left" : "right",
+                                }}
+                            >
+                                {message.text}
+                            </div>
+                        ))}
+                        <div ref={messagesEndRef} />
+                    </div>
+
+                    {/* Message input */}
+                    <div className="w-full h-[60px] px-4 py-2 flex bg-[#f6fffb] border-t-2">
                         <input
                             type="text"
                             className="flex-grow h-full bg-white rounded-lg p-4 border-2 border-back-green focus:outline-none"
@@ -123,9 +110,8 @@ export const ChatApp = () => {
                             </svg>
                         </button>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     );
-};
+}
